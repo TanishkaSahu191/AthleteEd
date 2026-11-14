@@ -1,22 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import {
   Trophy,
   BookOpen,
-  ShieldCheck,
-  Activity,
   HeartPulse,
-  CalendarCheck,
   CheckCircle,
   ArrowRight,
   Sparkles,
-  Users,
-  Compass,
-  Award,
   Zap,
-  Clock,
   ChevronDown,
   Dumbbell,
   GraduationCap
@@ -29,7 +22,7 @@ export default function HomePage() {
     {
       title: 'Tennis Academy',
       level: 'ITF / UTR / ATP Pathway',
-      desc: '12 clay & hard courts, PlaySight video biomechanics, and former tour coaching staff.',
+      desc: '12 clay & hard courts, PlaySight video biomechanics, and former ATP/WTA coaching staff.',
       icon: '🎾',
       badge: 'Championship Track',
       stats: '48 Resident Athletes · 14 National Titles'
@@ -84,7 +77,7 @@ export default function HomePage() {
       detail: 'High-performance gym, reactive agility drills, and individualized aerobic VO2 max training before class.',
       category: 'Sports Training',
       icon: Dumbbell,
-      color: 'emerald'
+      badgeColor: 'bg-blue-100 text-blue-900 border-blue-200'
     },
     {
       time: '09:15 – 12:30 PM',
@@ -93,7 +86,7 @@ export default function HomePage() {
       detail: 'AP Physics (biomechanics in motion), Calculus, and World History in small cohorts tailored for athletes.',
       category: 'Academics',
       icon: BookOpen,
-      color: 'blue'
+      badgeColor: 'bg-indigo-100 text-indigo-900 border-indigo-200'
     },
     {
       time: '12:30 – 02:00 PM',
@@ -102,7 +95,7 @@ export default function HomePage() {
       detail: 'Macro-balanced hot lunches, cold plunge hydrotherapy, and mental visualization resetting.',
       category: 'Wellness & Boarding',
       icon: HeartPulse,
-      color: 'amber'
+      badgeColor: 'bg-amber-100 text-amber-900 border-amber-200'
     },
     {
       time: '03:30 – 06:30 PM',
@@ -111,7 +104,7 @@ export default function HomePage() {
       detail: 'Center court match simulations, video feedback reviews with head coaches, and live scoring pressure drills.',
       category: 'Sports Training',
       icon: Trophy,
-      color: 'emerald'
+      badgeColor: 'bg-blue-100 text-blue-900 border-blue-200'
     },
     {
       time: '08:00 – 09:30 PM',
@@ -120,95 +113,95 @@ export default function HomePage() {
       detail: 'Dedicated faculty tutoring, homework grading, and college recruiting portfolio updates in Olympus Hall.',
       category: 'Academic Support',
       icon: GraduationCap,
-      color: 'blue'
+      badgeColor: 'bg-indigo-100 text-indigo-900 border-indigo-200'
     }
   ];
 
   return (
-    <div className="space-y-24 pb-24">
-      {/* 1. HERO SECTION WITH SCROLL-DRIVEN PARALLAX FEEL */}
-      <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden pt-8 pb-16 bg-radial-gradient">
-        {/* Animated background glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,_rgba(16,185,129,0.14),transparent_60%)] pointer-events-none" />
-        <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="space-y-24 pb-24 text-slate-900">
+      {/* 1. HERO SECTION WITH SCROLL-DRIVEN PARALLAX (LIGHT WHITE & NAVY BLUE) */}
+      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-8 pb-16 bg-gradient-to-b from-white via-blue-50/30 to-white">
+        {/* Soft navy radial glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,_rgba(30,58,138,0.06),transparent_65%)] pointer-events-none" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-100/40 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <div className="max-w-3xl mx-auto space-y-6">
             {/* Pill */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold tracking-wide backdrop-blur-md">
-              <Sparkles className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold tracking-wide shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-blue-700" />
               <span>Admissions Open · 2026-2027 Academic Year</span>
             </div>
 
-            {/* Main Heading */}
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.08]">
-              Where Future <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">Champions</span> Excel in Sport & Academics
+            {/* Main Heading in Deep Navy Blue */}
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-blue-950 tracking-tight leading-[1.08]">
+              Where Future <span className="bg-gradient-to-r from-blue-900 via-blue-700 to-indigo-700 bg-clip-text text-transparent">Champions</span> Excel in Sport & Academics
             </h1>
 
             {/* Subheading */}
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal max-w-2xl mx-auto">
-              A hybrid residential institution where students receive world-class sport coaching alongside accredited, flexible academics. Explore our live scroll-driven operations ecosystem.
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl mx-auto">
+              A hybrid residential institution where students receive world-class coaching alongside accredited, flexible academics. Explore our live scroll-driven operations ecosystem.
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
               <Link
                 href="/admissions"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl font-bold bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition-all shadow-xl shadow-emerald-500/25 text-sm hover:scale-105 active:scale-95 duration-200"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl font-bold bg-blue-900 hover:bg-blue-950 text-white transition-all shadow-xl shadow-blue-950/20 text-sm hover:scale-105 active:scale-95 duration-200"
               >
                 <span>Apply for Admission</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-blue-200" />
               </Link>
 
               <Link
                 href="/portal"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl font-semibold bg-slate-900/90 hover:bg-slate-800 text-white border border-slate-700/80 transition-all text-sm shadow-xl backdrop-blur-sm hover:border-emerald-500/40"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl font-bold bg-white hover:bg-slate-100 text-blue-950 border border-slate-300 transition-all text-sm shadow-sm hover:border-blue-500/50"
               >
-                <Zap className="w-4 h-4 text-emerald-400" />
+                <Zap className="w-4 h-4 text-blue-700" />
                 <span>Launch Interactive MVP Portal</span>
               </Link>
             </div>
 
-            {/* Floating Live KPI Badges */}
+            {/* KPI Badges */}
             <div className="pt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-md hover:border-emerald-500/40 transition-all">
-                <div className="text-3xl font-black text-white">98%</div>
-                <div className="text-xs text-slate-400 font-medium mt-1">Collegiate Placement</div>
+              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
+                <div className="text-3xl font-black text-blue-950">98%</div>
+                <div className="text-xs text-slate-500 font-semibold mt-1">Collegiate Placement</div>
               </div>
-              <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-md hover:border-emerald-500/40 transition-all">
-                <div className="text-3xl font-black text-emerald-400">1 : 8</div>
-                <div className="text-xs text-slate-400 font-medium mt-1">Coach-to-Athlete Ratio</div>
+              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
+                <div className="text-3xl font-black text-blue-700">1 : 8</div>
+                <div className="text-xs text-slate-500 font-semibold mt-1">Coach-to-Athlete Ratio</div>
               </div>
-              <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-md hover:border-emerald-500/40 transition-all">
-                <div className="text-3xl font-black text-white">3.85</div>
-                <div className="text-xs text-slate-400 font-medium mt-1">Average Student GPA</div>
+              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
+                <div className="text-3xl font-black text-blue-950">3.85</div>
+                <div className="text-xs text-slate-500 font-semibold mt-1">Average Student GPA</div>
               </div>
-              <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-md hover:border-emerald-500/40 transition-all">
-                <div className="text-3xl font-black text-emerald-400">0</div>
-                <div className="text-xs text-slate-400 font-medium mt-1">Schedule Conflicts</div>
+              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
+                <div className="text-3xl font-black text-blue-700">0</div>
+                <div className="text-xs text-slate-500 font-semibold mt-1">Schedule Conflicts</div>
               </div>
             </div>
 
             {/* Scroll Indicator Prompt */}
-            <div className="pt-8 flex flex-col items-center justify-center text-slate-500 text-xs animate-bounce">
+            <div className="pt-8 flex flex-col items-center justify-center text-slate-400 text-xs animate-bounce font-medium">
               <span>Scroll down to explore daily schedule & sport pathways</span>
-              <ChevronDown className="w-4 h-4 mt-1" />
+              <ChevronDown className="w-4 h-4 mt-1 text-blue-700" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. SCROLLYTELLING SECTION: A DAY IN THE LIFE (PRD GOAL 2 COEXISTENCE) */}
+      {/* 2. SCROLLYTELLING SECTION: A DAY IN THE LIFE */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">
+          <span className="text-xs font-black uppercase tracking-widest text-blue-800">
             Harmonized Daily Rhythm
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-2">
+          <h2 className="text-3xl sm:text-4xl font-black text-blue-950 mt-2">
             A Day in the Life of a Student-Athlete
           </h2>
-          <p className="text-sm text-slate-400 mt-2">
+          <p className="text-sm text-slate-600 mt-2 font-medium">
             See how high-intensity training, rigorous academics, and restorative recovery coexist seamlessly.
           </p>
         </div>
@@ -226,35 +219,29 @@ export default function HomePage() {
                   onClick={() => setActiveHour(index)}
                   className={`scroll-card-reveal cursor-pointer p-6 rounded-2xl border transition-all duration-300 ${
                     isSelected
-                      ? 'bg-slate-900 border-emerald-500 shadow-xl shadow-emerald-500/10 scale-[1.01]'
-                      : 'bg-slate-950/70 border-slate-800 hover:border-slate-700 hover:bg-slate-900/60'
+                      ? 'bg-white border-2 border-blue-900 shadow-lg shadow-blue-950/10 scale-[1.01]'
+                      : 'bg-white border border-slate-200 hover:border-slate-300 hover:shadow-sm'
                   }`}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
-                    <div className="flex items-center gap-3">
-                      <div className={`p-2.5 rounded-xl border ${
-                        slot.color === 'emerald'
-                          ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400'
-                          : slot.color === 'blue'
-                          ? 'bg-blue-500/15 border-blue-500/30 text-blue-400'
-                          : 'bg-amber-500/15 border-amber-500/30 text-amber-400'
-                      }`}>
-                        <Icon className="w-5 h-5" />
+                    <div className="flex items-center gap-3.5">
+                      <div className="p-2.5 rounded-xl bg-blue-50 border border-blue-200 text-blue-900">
+                        <Icon className="w-5 h-5 text-blue-800" />
                       </div>
                       <div>
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
                           {slot.phase} · {slot.category}
                         </span>
-                        <h3 className="text-base sm:text-lg font-bold text-white">{slot.title}</h3>
+                        <h3 className="text-base sm:text-lg font-black text-slate-900">{slot.title}</h3>
                       </div>
                     </div>
 
-                    <div className="font-mono text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-emerald-400 self-start sm:self-auto">
+                    <div className="font-mono text-xs font-bold px-3 py-1.5 rounded-lg bg-blue-50 border border-blue-200 text-blue-950 self-start sm:self-auto">
                       {slot.time}
                     </div>
                   </div>
 
-                  <p className="text-xs sm:text-sm text-slate-400 pl-0 sm:pl-12 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-600 pl-0 sm:pl-12 leading-relaxed font-medium">
                     {slot.detail}
                   </p>
                 </div>
@@ -264,42 +251,42 @@ export default function HomePage() {
 
           {/* Right Column: Sticky Live Schedule Card */}
           <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-6">
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-emerald-500/30 shadow-2xl space-y-5">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                <span className="text-xs uppercase font-bold tracking-wider text-emerald-400 flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-5">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                <span className="text-xs uppercase font-black tracking-wider text-blue-950 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-blue-700 animate-ping" />
                   Active Routine Sync
                 </span>
-                <span className="text-[11px] text-slate-400">Olympus Campus</span>
+                <span className="text-[11px] text-slate-500 font-semibold">Olympus Campus</span>
               </div>
 
               <div>
-                <span className="text-xs font-mono text-slate-400">Selected Window:</span>
-                <div className="text-lg font-bold text-white mt-0.5">{athleteDaySchedule[activeHour].time}</div>
-                <div className="text-sm font-semibold text-emerald-400 mt-1">{athleteDaySchedule[activeHour].title}</div>
+                <span className="text-xs font-mono text-slate-500 font-semibold">Selected Window:</span>
+                <div className="text-lg font-black text-blue-950 mt-0.5">{athleteDaySchedule[activeHour].time}</div>
+                <div className="text-sm font-bold text-blue-700 mt-1">{athleteDaySchedule[activeHour].title}</div>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2 text-xs">
+              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2 text-xs font-medium">
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Target Group:</span>
-                  <span className="text-white font-semibold">Elite Squad & Grade 10</span>
+                  <span className="text-slate-500">Target Group:</span>
+                  <span className="text-slate-900 font-bold">Elite Squad & Grade 10</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Conflict Engine:</span>
-                  <span className="text-emerald-400 font-bold">100% Conflict-Free ✅</span>
+                  <span className="text-slate-500">Conflict Engine:</span>
+                  <span className="text-emerald-700 font-bold">100% Conflict-Free ✅</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Parent Portal:</span>
-                  <span className="text-blue-400 font-medium">Real-Time Sync 📡</span>
+                  <span className="text-slate-500">Parent Portal:</span>
+                  <span className="text-blue-700 font-bold">Real-Time Sync 📡</span>
                 </div>
               </div>
 
               <Link
                 href="/portal"
-                className="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-500/20"
+                className="w-full py-3.5 rounded-xl bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-md shadow-blue-950/20"
               >
                 <span>View Full Timetable in Portal</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-blue-200" />
               </Link>
             </div>
           </div>
@@ -308,18 +295,18 @@ export default function HomePage() {
 
       {/* 3. SPORT DISCIPLINES WITH SCROLL REVEAL CARDS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b border-slate-800 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b border-slate-200 gap-4">
           <div>
-            <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">
+            <span className="text-xs font-black uppercase tracking-widest text-blue-800">
               Olympic & Pro Pathways
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-1">
+            <h2 className="text-3xl sm:text-4xl font-black text-blue-950 mt-1">
               Six Elite Sports Academies
             </h2>
           </div>
           <Link
             href="/programs"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-300"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-800 hover:text-blue-950"
           >
             <span>Explore All Academic Programs</span>
             <ArrowRight className="w-4 h-4" />
@@ -330,32 +317,32 @@ export default function HomePage() {
           {sports.map((s, idx) => (
             <div
               key={idx}
-              className="scroll-card-reveal bg-slate-900/80 border border-slate-800 hover:border-emerald-500/50 rounded-2xl p-6 transition-all duration-300 group flex flex-col justify-between hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-500/10"
+              className="scroll-card-reveal bg-white border border-slate-200 hover:border-blue-400 rounded-2xl p-6 transition-all duration-300 group flex flex-col justify-between hover:-translate-y-1 shadow-sm hover:shadow-xl"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-3xl p-3 rounded-2xl bg-slate-950 border border-slate-800 group-hover:scale-110 group-hover:border-emerald-500/40 transition-all duration-300">
+                  <span className="text-3xl p-3 rounded-2xl bg-blue-50 border border-blue-200 group-hover:scale-110 group-hover:border-blue-300 transition-all duration-300">
                     {s.icon}
                   </span>
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
                     {s.badge}
                   </span>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors">
+                <h3 className="text-xl font-black text-blue-950 mb-1 group-hover:text-blue-700 transition-colors">
                   {s.title}
                 </h3>
-                <div className="text-xs font-semibold text-emerald-400/90 mb-2">{s.level}</div>
-                <p className="text-xs text-slate-400 leading-relaxed mb-4">{s.desc}</p>
-                <div className="text-[11px] text-slate-400 border-t border-slate-800/80 pt-3">
+                <div className="text-xs font-bold text-blue-700 mb-2">{s.level}</div>
+                <p className="text-xs text-slate-600 leading-relaxed mb-4 font-medium">{s.desc}</p>
+                <div className="text-[11px] text-slate-500 border-t border-slate-100 pt-3 font-semibold">
                   <strong>Track Record:</strong> {s.stats}
                 </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between text-xs">
-                <span className="text-slate-400">Residential Boarding</span>
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span className="text-slate-500 font-medium">Residential Boarding</span>
                 <Link
                   href="/admissions"
-                  className="font-bold text-emerald-400 group-hover:text-emerald-300 inline-flex items-center gap-1.5"
+                  className="font-bold text-blue-900 group-hover:text-blue-700 inline-flex items-center gap-1.5"
                 >
                   <span>Apply Now</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -366,40 +353,40 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. BOARDING & RESIDENCE WITH SCROLL GLOW */}
-      <section className="bg-slate-900/40 border-y border-slate-800 py-20 relative overflow-hidden">
+      {/* 4. BOARDING & RESIDENCE */}
+      <section className="bg-blue-50/40 border-y border-slate-200 py-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="scroll-slide-in-left space-y-6">
-              <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">
+              <span className="text-xs font-black uppercase tracking-widest text-blue-800">
                 24/7 Residential Care & Safety
               </span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-black text-blue-950 leading-tight">
                 Olympus Residence Hall: A Home Away From Home
               </h2>
-              <p className="text-sm text-slate-300 leading-relaxed">
+              <p className="text-sm text-slate-600 leading-relaxed font-medium">
                 Parents enjoy total peace of mind. Our boarding ecosystem tracks biometric daily attendance, curfew check-ins, dietary allergy tracking, and automated outing sign-offs directly inside the Parent Portal.
               </p>
 
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                  <span className="text-xs sm:text-sm text-slate-300">Biometric & digital hostel roll calls with real-time push alerts to parents.</span>
+                  <CheckCircle className="w-5 h-5 text-blue-700 shrink-0 mt-0.5" />
+                  <span className="text-xs sm:text-sm text-slate-700 font-medium">Biometric & digital hostel roll calls with real-time push alerts to parents.</span>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                  <span className="text-xs sm:text-sm text-slate-300">Digital Leave & Outing Request workflow with 1-click parent approval.</span>
+                  <CheckCircle className="w-5 h-5 text-blue-700 shrink-0 mt-0.5" />
+                  <span className="text-xs sm:text-sm text-slate-700 font-medium">Digital Leave & Outing Request workflow with 1-click parent approval.</span>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                  <span className="text-xs sm:text-sm text-slate-300">Dedicated sports medicine clinic & physiotherapists on duty 24 hours.</span>
+                  <CheckCircle className="w-5 h-5 text-blue-700 shrink-0 mt-0.5" />
+                  <span className="text-xs sm:text-sm text-slate-700 font-medium">Dedicated sports medicine clinic & physiotherapists on duty 24 hours.</span>
                 </div>
               </div>
 
               <div className="pt-2">
                 <Link
                   href="/portal"
-                  className="inline-flex items-center gap-2 text-xs font-bold text-emerald-400 hover:text-emerald-300 underline"
+                  className="inline-flex items-center gap-2 text-xs font-bold text-blue-800 hover:text-blue-950 underline"
                 >
                   <span>Test Parent Leave Approval in Live Portal</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -408,43 +395,43 @@ export default function HomePage() {
             </div>
 
             {/* Right Card: Live Parent Portal Simulation */}
-            <div className="scroll-slide-in-right p-6 rounded-2xl bg-slate-950 border border-slate-800 shadow-2xl relative">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-                <span className="text-xs uppercase font-bold tracking-wider text-slate-400">
+            <div className="scroll-slide-in-right p-6 rounded-2xl bg-white border border-slate-200 shadow-xl relative">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+                <span className="text-xs uppercase font-bold tracking-wider text-slate-500">
                   Parent Portal Live Feed
                 </span>
-                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-950 border border-blue-200">
                   Leo Jenkins · Active
                 </span>
               </div>
 
               <div className="space-y-3 text-xs">
-                <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
                   <div>
-                    <div className="font-bold text-white">Daily Hostel Roll-Call</div>
-                    <div className="text-[11px] text-slate-400">Olympus Hall 204-B · 08:30 PM Check-in</div>
+                    <div className="font-bold text-slate-900">Daily Hostel Roll-Call</div>
+                    <div className="text-[11px] text-slate-500">Olympus Hall 204-B · 08:30 PM Check-in</div>
                   </div>
-                  <span className="text-emerald-400 font-bold bg-emerald-500/10 px-2 py-1 rounded text-[10px]">
+                  <span className="text-blue-900 font-bold bg-blue-100 px-2 py-1 rounded text-[10px] border border-blue-200">
                     Present ✅
                   </span>
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
                   <div>
-                    <div className="font-bold text-white">Tournament Outing Gate Pass</div>
-                    <div className="text-[11px] text-slate-400">ITF Orlando Invitational · Nov 27-29</div>
+                    <div className="font-bold text-slate-900">Tournament Outing Gate Pass</div>
+                    <div className="text-[11px] text-slate-500">ITF Orlando Invitational · Nov 27-29</div>
                   </div>
-                  <span className="text-amber-400 font-bold bg-amber-500/10 px-2 py-1 rounded text-[10px]">
+                  <span className="text-amber-900 font-bold bg-amber-100 px-2 py-1 rounded text-[10px] border border-amber-200">
                     Signed by Parent
                   </span>
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
                   <div>
-                    <div className="font-bold text-white">Physio Fitness Clearance</div>
-                    <div className="text-[11px] text-slate-400">Ankle rehab complete · Full load authorized</div>
+                    <div className="font-bold text-slate-900">Physio Fitness Clearance</div>
+                    <div className="text-[11px] text-slate-500">Ankle rehab complete · Full load authorized</div>
                   </div>
-                  <span className="text-emerald-400 font-bold bg-emerald-500/10 px-2 py-1 rounded text-[10px]">
+                  <span className="text-emerald-900 font-bold bg-emerald-100 px-2 py-1 rounded text-[10px] border border-emerald-200">
                     Cleared
                   </span>
                 </div>
@@ -456,23 +443,23 @@ export default function HomePage() {
 
       {/* 5. BOTTOM CTA SECTION */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="scroll-card-reveal bg-gradient-to-r from-emerald-950/80 via-slate-900 to-emerald-950/80 border border-emerald-500/30 rounded-3xl p-8 sm:p-14 shadow-2xl space-y-6">
+        <div className="scroll-card-reveal bg-gradient-to-r from-blue-950 via-blue-900 to-blue-950 border border-blue-900 rounded-3xl p-8 sm:p-14 shadow-2xl space-y-6 text-white">
           <h2 className="text-3xl sm:text-5xl font-black text-white">
             Ready to Begin Your Championship Journey?
           </h2>
-          <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-blue-100 max-w-2xl mx-auto font-medium">
             Submit your student profile today. Our admissions and athletic coaching committee will review your video dossiers and invite qualified candidates for campus assessment trials.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
             <Link
               href="/admissions"
-              className="px-7 py-4 rounded-xl font-bold bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition-all text-sm shadow-xl shadow-emerald-500/20 hover:scale-105"
+              className="px-7 py-4 rounded-xl font-bold bg-white hover:bg-slate-100 text-blue-950 transition-all text-sm shadow-xl shadow-black/20 hover:scale-105"
             >
               Start Online Application
             </Link>
             <Link
               href="/portal"
-              className="px-7 py-4 rounded-xl font-bold bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 transition-all text-sm"
+              className="px-7 py-4 rounded-xl font-bold bg-blue-900/60 hover:bg-blue-800 text-white border border-blue-400/40 transition-all text-sm"
             >
               Test Live Portal (All Roles)
             </Link>
