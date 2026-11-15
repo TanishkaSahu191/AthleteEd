@@ -23,7 +23,7 @@ export default function ProgramsPage() {
       facilities: '3 FIFA Quality Pro Turf pitches, 2 Natural Grass',
       trainingHours: '20 hrs / week',
       pathway: 'MLS Next, European Academy Showcases, NCAA',
-      image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop&q=80',
+      image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=80',
       features: [
         'GPS load monitoring (Catapult sports tracking)',
         'Positional tactical analysis & set-piece mastery',

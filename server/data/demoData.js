@@ -456,11 +456,59 @@ const leaveRequests = [
   }
 ];
 
+const medicalRecords = [
+  {
+    id: "med_101",
+    studentId: "stu_101",
+    studentName: "Leo Jenkins",
+    sport: "Tennis (Elite U-16)",
+    clearanceStatus: "Cleared - Full Training",
+    diagnosis: "Right ankle strain (rehabilitated)",
+    restrictions: "None. Cleared for 100% competition load.",
+    cryotherapyRequired: false,
+    maxDailyTrainingMinutes: 180,
+    attendingPhysio: "Dr. Maya Lin, PT",
+    lastEvaluated: "2026-11-14T09:30:00Z",
+    alertHistory: []
+  },
+  {
+    id: "med_102",
+    studentId: "stu_103",
+    studentName: "Mateo Gomez",
+    sport: "Tennis (Elite U-16)",
+    clearanceStatus: "Modified Load",
+    diagnosis: "Bilateral tibial stress reaction (Shin Splints)",
+    restrictions: "45-minute limit on hardcourt impacts; zero high-impact plyometrics; daily ice bath.",
+    cryotherapyRequired: true,
+    maxDailyTrainingMinutes: 45,
+    attendingPhysio: "Dr. Maya Lin, PT",
+    lastEvaluated: "2026-11-13T16:00:00Z",
+    alertHistory: [
+      { timestamp: "2026-11-13T16:05:00Z", target: "Coach David Miller", message: "Load capped at 45 mins" }
+    ]
+  },
+  {
+    id: "med_103",
+    studentId: "stu_102",
+    studentName: "Aria Sharma",
+    sport: "Swimming (National Junior)",
+    clearanceStatus: "Cleared - Full Training",
+    diagnosis: "Rotator cuff impingement monitoring",
+    restrictions: "None. Rotator cuff mobility within normal range (>165°).",
+    cryotherapyRequired: false,
+    maxDailyTrainingMinutes: 150,
+    attendingPhysio: "Dr. Maya Lin, PT",
+    lastEvaluated: "2026-11-12T11:00:00Z",
+    alertHistory: []
+  }
+];
+
 module.exports = {
   users,
   students,
   applications,
   timetableEntries,
   fees,
-  leaveRequests
+  leaveRequests,
+  medicalRecords
 };

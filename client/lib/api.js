@@ -130,6 +130,158 @@ export async function getTimetable(params = {}) {
   };
 }
 
+export async function simulateScheduleConflict(proposedSlot) {
+  const result = await fetchAPI('/timetable/simulate-conflict', {
+    method: 'POST',
+    body: JSON.stringify(proposedSlot)
+  });
+  if (result) return result;
+
+  // Local fallback simulation
+  return {
+    success: true,
+    hasConflict: true,
+    proposedSlot,
+    conflictingSession: {
+      id: "tt_3",
+      title: "AP Physics: Kinematics in Sports Mechanics",
+      startTime: "09:15",
+      endTime: "10:45",
+      type: "academic",
+      instructor: "Dr. Elena Rostova",
+      location: "Academic Lab 3"
+    },
+    policyRule: "PRD §4.3 Core Academic Priority: Academic curriculum hours (08:30 - 15:30) take strict legal priority over athletic drills unless tournament travel leave has been approved by the Academic Dean.",
+    aiRecommendations: [
+      {
+        id: 'res_early',
+        label: 'Option A: Early Morning Conditioning Window',
+        day: 'Monday',
+        startTime: '07:00',
+        endTime: '08:15',
+        title: 'Pre-Class Tactical Conditioning & Footwork',
+        type: 'training',
+        instructor: 'Coach David Miller',
+        location: 'Clay Courts 1-2',
+        rationale: 'Slot finishes 45 minutes before morning academics begin; maintains full breakfast & recovery window.'
+      },
+      {
+        id: 'res_afternoon',
+        label: 'Option B: Post-Academic Training Window',
+        day: 'Monday',
+        startTime: '15:45',
+        endTime: '17:00',
+        title: 'Post-Academic Match Play & Strategy',
+        type: 'training',
+        instructor: 'Coach David Miller',
+        location: 'Center Court',
+        rationale: 'Slots immediately after academic dismissal with 15-minute hydration buffer before evening study hall.'
+      }
+    ]
+  };
+}
+
+export async function resolveScheduleConflict(resolutionSlot) {
+  const result = await fetchAPI('/timetable/resolve-conflict', {
+    method: 'POST',
+    body: JSON.stringify({ resolutionSlot })
+  });
+  if (result) return result;
+
+  return {
+    success: true,
+    message: 'Schedule successfully harmonized! Added conflict-free session to unified timetable.',
+    entry: {
+      id: `tt_ai_${Date.now()}`,
+      day: resolutionSlot.day || 'Monday',
+      startTime: resolutionSlot.startTime,
+      endTime: resolutionSlot.endTime,
+      type: resolutionSlot.type || 'training',
+      title: resolutionSlot.title,
+      category: 'AI Optimized Block',
+      instructor: resolutionSlot.instructor || 'Coach David Miller',
+      location: resolutionSlot.location || 'Tennis Facility',
+      targetGroup: 'Grade 10',
+      isAiResolved: true
+    }
+  };
+}
+
+// Medical / Sports Physio API (US-08 Cross-Role Alert Chain)
+export async function getMedicalRecords() {
+  const result = await fetchAPI('/medical/records');
+  if (result && result.records) return result.records;
+
+  return [
+    {
+      id: "med_101",
+      studentId: "stu_101",
+      studentName: "Leo Jenkins",
+      sport: "Tennis (Elite U-16)",
+      clearanceStatus: "Cleared - Full Training",
+      diagnosis: "Right ankle strain (rehabilitated)",
+      restrictions: "None. Cleared for 100% competition load.",
+      cryotherapyRequired: false,
+      maxDailyTrainingMinutes: 180,
+      attendingPhysio: "Dr. Maya Lin, PT",
+      lastEvaluated: "2026-11-14T09:30:00Z"
+    },
+    {
+      id: "med_102",
+      studentId: "stu_103",
+      studentName: "Mateo Gomez",
+      sport: "Tennis (Elite U-16)",
+      clearanceStatus: "Modified Load",
+      diagnosis: "Bilateral tibial stress reaction (Shin Splints)",
+      restrictions: "45-minute limit on hardcourt impacts; zero high-impact plyometrics; daily ice bath.",
+      cryotherapyRequired: true,
+      maxDailyTrainingMinutes: 45,
+      attendingPhysio: "Dr. Maya Lin, PT",
+      lastEvaluated: "2026-11-13T16:00:00Z"
+    },
+    {
+      id: "med_103",
+      studentId: "stu_102",
+      studentName: "Aria Sharma",
+      sport: "Swimming (National Junior)",
+      clearanceStatus: "Cleared - Full Training",
+      diagnosis: "Rotator cuff impingement monitoring",
+      restrictions: "None. Rotator cuff mobility within normal range (>165°).",
+      cryotherapyRequired: false,
+      maxDailyTrainingMinutes: 150,
+      attendingPhysio: "Dr. Maya Lin, PT",
+      lastEvaluated: "2026-11-12T11:00:00Z"
+    }
+  ];
+}
+
+export async function updateAthleteClearance(studentId, clearanceData) {
+  const result = await fetchAPI(`/medical/clearance/${studentId}`, {
+    method: 'PATCH',
+    body: JSON.stringify(clearanceData)
+  });
+  if (result) return result;
+
+  return {
+    success: true,
+    message: `Medical clearance updated to "${clearanceData.clearanceStatus}". Cross-role broadcast dispatched to Coach David Miller & Parent Sarah Jenkins!`,
+    record: {
+      studentId,
+      ...clearanceData,
+      attendingPhysio: "Dr. Maya Lin, PT",
+      lastEvaluated: new Date().toISOString()
+    },
+    broadcastAlert: {
+      id: `alt_${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      originator: 'Dr. Maya Lin, PT (Sports Medicine)',
+      recipients: ['Coach David Miller (Tennis Head Coach)', 'Sarah Jenkins (Parent / Guardian)'],
+      status: clearanceData.clearanceStatus,
+      directive: clearanceData.restrictions
+    }
+  };
+}
+
 // Parent API
 export async function getParentOverview() {
   const result = await fetchAPI('/parent/child-overview');

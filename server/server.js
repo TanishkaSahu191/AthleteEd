@@ -11,6 +11,7 @@ const admissionsRoutes = require('./routes/admissionsRoutes');
 const timetableRoutes = require('./routes/timetableRoutes');
 const parentRoutes = require('./routes/parentRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
+const medicalRoutes = require('./routes/medicalRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -33,6 +34,7 @@ app.use('/api/v1/applications', admissionsRoutes);
 app.use('/api/v1/timetable', timetableRoutes);
 app.use('/api/v1/parent', parentRoutes);
 app.use('/api/v1/dashboard', dashboardRoutes);
+app.use('/api/v1/medical', medicalRoutes);
 
 // Health check & System info
 app.get('/api/v1/health', (req, res) => {

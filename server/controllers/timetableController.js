@@ -93,7 +93,114 @@ const addTimetableEntry = (req, res) => {
   });
 };
 
+// POST /api/v1/timetable/simulate-conflict - Simulates an overlap check for the PRD Conflict Engine
+const simulateConflict = (req, res) => {
+  const {
+    day = 'Monday',
+    startTime = '10:00',
+    endTime = '11:30',
+    title = 'Tennis High-Intensity Drill Session',
+    type = 'training',
+    targetGroup = 'Grade 10'
+  } = req.body;
+
+  // Find any overlapping existing slot
+  const conflict = timetableEntries.find(
+    e => e.day.toLowerCase() === day.toLowerCase() &&
+    startTime < e.endTime &&
+    endTime > e.startTime
+  );
+
+  if (conflict) {
+    return res.status(200).json({
+      success: true,
+      hasConflict: true,
+      proposedSlot: { day, startTime, endTime, title, type, targetGroup },
+      conflictingSession: {
+        id: conflict.id,
+        title: conflict.title,
+        startTime: conflict.startTime,
+        endTime: conflict.endTime,
+        type: conflict.type,
+        instructor: conflict.instructor,
+        location: conflict.location
+      },
+      policyRule: "PRD §4.3 Core Academic Priority: Academic curriculum hours (08:30 - 15:30) take strict legal priority over athletic drills unless tournament travel leave has been approved by the Academic Dean.",
+      aiRecommendations: [
+        {
+          id: 'res_early',
+          label: 'Option A: Early Morning Conditioning Window',
+          day: 'Monday',
+          startTime: '07:00',
+          endTime: '08:15',
+          title: 'Pre-Class Tactical Conditioning & Footwork',
+          type: 'training',
+          instructor: 'Coach David Miller',
+          location: 'Clay Courts 1-2',
+          rationale: 'Slot finishes 45 minutes before morning academics begin; maintains full breakfast & recovery window.'
+        },
+        {
+          id: 'res_afternoon',
+          label: 'Option B: Post-Academic Training Window',
+          day: 'Monday',
+          startTime: '15:45',
+          endTime: '17:00',
+          title: 'Post-Academic Match Play & Strategy',
+          type: 'training',
+          instructor: 'Coach David Miller',
+          location: 'Center Court',
+          rationale: 'Slots immediately after academic dismissal with 15-minute hydration buffer before evening study hall.'
+        }
+      ]
+    });
+  }
+
+  return res.status(200).json({
+    success: true,
+    hasConflict: false,
+    message: 'No conflicts detected. Time slot is fully compatible with academic and recovery blocks.'
+  });
+};
+
+// POST /api/v1/timetable/resolve-conflict - Inserts an AI harmonized slot
+const resolveConflict = (req, res) => {
+  const { resolutionSlot } = req.body;
+
+  if (!resolutionSlot || !resolutionSlot.startTime || !resolutionSlot.endTime) {
+    return res.status(400).json({ success: false, message: 'Invalid resolution slot provided.' });
+  }
+
+  const harmonizedEntry = {
+    id: `tt_ai_${Date.now()}`,
+    day: resolutionSlot.day || 'Monday',
+    startTime: resolutionSlot.startTime,
+    endTime: resolutionSlot.endTime,
+    type: resolutionSlot.type || 'training',
+    title: resolutionSlot.title || 'Harmonized Training Session',
+    category: 'AI Optimized Block',
+    instructor: resolutionSlot.instructor || 'Coach David Miller',
+    location: resolutionSlot.location || 'Tennis Facility',
+    targetGroup: 'Grade 10',
+    isAiResolved: true
+  };
+
+  // Avoid duplicates
+  const existingIdx = timetableEntries.findIndex(e => e.id === harmonizedEntry.id);
+  if (existingIdx === -1) {
+    timetableEntries.push(harmonizedEntry);
+  }
+
+  return res.status(200).json({
+    success: true,
+    message: 'Schedule successfully harmonized! Added conflict-free session to unified timetable.',
+    entry: harmonizedEntry,
+    allEntries: timetableEntries.sort((a, b) => a.startTime.localeCompare(b.startTime))
+  });
+};
+
 module.exports = {
   getTimetable,
-  addTimetableEntry
+  addTimetableEntry,
+  simulateConflict,
+  resolveConflict
 };
