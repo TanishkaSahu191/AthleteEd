@@ -2,6 +2,7 @@ import './globals.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ScrollAnimationManager from '../components/ScrollAnimationManager';
+import Sports3DCanvas from '../components/Sports3DCanvas';
 
 export const metadata = {
   title: 'AthleteEd | Sports Academy & Academic Boarding School',
@@ -15,10 +16,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="light">
-      <body className="min-h-screen flex flex-col bg-slate-50 text-slate-900 antialiased selection:bg-blue-900 selection:text-white">
+      <body className="min-h-screen flex flex-col bg-slate-50 text-slate-900 antialiased selection:bg-blue-900 selection:text-white relative">
+        <Sports3DCanvas />
         <ScrollAnimationManager />
         <Navbar />
-        <main className="flex-1">
+        <main className="flex-1 relative z-10">
           {children}
         </main>
         <Footer />

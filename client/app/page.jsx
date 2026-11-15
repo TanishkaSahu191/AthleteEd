@@ -45,7 +45,7 @@ export default function HomePage() {
       icon: ShieldCheck,
       badge: 'Pro Scout Network',
       stats: '52 Resident Athletes · 6 Pro Signings',
-      image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop&q=80'
+      image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=80'
     },
     {
       title: 'Basketball Prep',
@@ -136,27 +136,27 @@ export default function HomePage() {
   return (
     <div className="space-y-24 pb-24 text-slate-900">
       {/* 1. HERO SECTION WITH SCROLL-DRIVEN PARALLAX (LIGHT WHITE & NAVY BLUE) */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-8 pb-16 bg-gradient-to-b from-white via-blue-50/30 to-white">
+      <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden pt-8 pb-16 bg-gradient-to-b from-white/70 via-blue-50/10 to-transparent">
         {/* Soft navy radial glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,_rgba(30,58,138,0.06),transparent_65%)] pointer-events-none" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-100/40 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,_rgba(30,58,138,0.04),transparent_65%)] pointer-events-none" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-100/30 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-100/30 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <div className="max-w-3xl mx-auto space-y-6">
             {/* Pill */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-bold tracking-wide shadow-xs">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-blue-200 text-blue-900 text-xs font-bold tracking-wide shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-blue-700" />
               <span>Admissions Open · 2026-2027 Academic Year</span>
             </div>
 
             {/* Main Heading in Deep Navy Blue */}
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-blue-950 tracking-tight leading-[1.08]">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-blue-950 tracking-tight leading-[1.08] drop-shadow-xs">
               Where Future <span className="bg-gradient-to-r from-blue-900 via-blue-700 to-indigo-700 bg-clip-text text-transparent">Champions</span> Excel in Sport & Academics
             </h1>
 
             {/* Subheading */}
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-medium max-w-2xl mx-auto">
               A hybrid residential institution where students receive world-class coaching alongside accredited, flexible academics. Explore our live scroll-driven operations ecosystem.
             </p>
 
@@ -172,7 +172,7 @@ export default function HomePage() {
 
               <Link
                 href="/portal"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl font-bold bg-white hover:bg-slate-100 text-blue-950 border border-slate-300 transition-all text-sm shadow-sm hover:border-blue-500/50"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl font-bold bg-white/90 hover:bg-white text-blue-950 border border-slate-300 transition-all text-sm shadow-sm hover:border-blue-500/50 backdrop-blur-sm"
               >
                 <Zap className="w-4 h-4 text-blue-700" />
                 <span>Launch Interactive MVP Portal</span>
@@ -181,19 +181,19 @@ export default function HomePage() {
 
             {/* KPI Badges */}
             <div className="pt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
+              <div className="p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
                 <div className="text-3xl font-black text-blue-950">98%</div>
                 <div className="text-xs text-slate-500 font-semibold mt-1">Collegiate Placement</div>
               </div>
-              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
+              <div className="p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
                 <div className="text-3xl font-black text-blue-700">1 : 8</div>
                 <div className="text-xs text-slate-500 font-semibold mt-1">Coach-to-Athlete Ratio</div>
               </div>
-              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
+              <div className="p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
                 <div className="text-3xl font-black text-blue-950">3.85</div>
                 <div className="text-xs text-slate-500 font-semibold mt-1">Average Student GPA</div>
               </div>
-              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
+              <div className="p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
                 <div className="text-3xl font-black text-blue-700">0</div>
                 <div className="text-xs text-slate-500 font-semibold mt-1">Schedule Conflicts</div>
               </div>
