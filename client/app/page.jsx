@@ -369,7 +369,7 @@ export default function HomePage() {
       </section>
 
       {/* 4. BOARDING & RESIDENCE */}
-      <section className="bg-blue-50/40 border-y border-slate-200 py-20 relative overflow-hidden">
+      <section id="boarding" className="bg-blue-50/40 border-y border-slate-200 py-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="scroll-slide-in-left space-y-6">

@@ -12,7 +12,7 @@ export default function Navbar() {
     { name: 'Home', href: '/' },
     { name: 'Programs', href: '/programs' },
     { name: 'Admissions', href: '/admissions' },
-    { name: 'Live MVP Portal', href: '/portal' },
+    { name: 'Campus Life', href: '/#boarding' },
   ];
 
   return (
