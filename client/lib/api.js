@@ -224,11 +224,11 @@ export async function getAdminMetrics() {
     collectionRate: 89,
     averageAttendance: 96.8,
     sportsBreakdown: [
-      { sport: 'Tennis', count: 48, icon: '🎾' },
-      { sport: 'Football', count: 52, icon: '⚽' },
-      { sport: 'Basketball', count: 36, icon: '🏀' },
-      { sport: 'Swimming', count: 28, icon: '🏊' },
-      { sport: 'Athletics & Track', count: 20, icon: '🏃' }
+      { sport: 'Tennis', count: 48 },
+      { sport: 'Football', count: 52 },
+      { sport: 'Basketball', count: 36 },
+      { sport: 'Swimming', count: 28 },
+      { sport: 'Athletics & Track', count: 20 }
     ]
   };
 }

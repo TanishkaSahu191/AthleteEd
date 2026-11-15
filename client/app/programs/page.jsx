@@ -113,7 +113,7 @@ export default function ProgramsPage() {
                 <div className="space-y-1.5 text-xs text-slate-700 font-medium">
                   {sp.features.map((feat, fi) => (
                     <div key={fi} className="flex items-start gap-2">
-                      <span className="text-blue-700 font-bold">✓</span>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-700 shrink-0 mt-0.5" />
                       <span>{feat}</span>
                     </div>
                   ))}

@@ -12,11 +12,11 @@ const getAdminMetrics = (req, res) => {
   const collectionRate = Math.round((totalFeesCollected / totalFeesExpected) * 100);
 
   const sportsBreakdown = [
-    { sport: 'Tennis', count: 48, icon: '🎾' },
-    { sport: 'Football', count: 52, icon: '⚽' },
-    { sport: 'Basketball', count: 36, icon: '🏀' },
-    { sport: 'Swimming', count: 28, icon: '🏊' },
-    { sport: 'Athletics & Track', count: 24, icon: '🏃' }
+    { sport: 'Tennis', count: 48 },
+    { sport: 'Football', count: 52 },
+    { sport: 'Basketball', count: 36 },
+    { sport: 'Swimming', count: 28 },
+    { sport: 'Athletics & Track', count: 24 }
   ];
 
   const recentApplications = applications.slice(0, 5);

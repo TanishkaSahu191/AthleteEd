@@ -12,7 +12,7 @@ const connectDB = async () => {
     isConnected = true;
     console.log(` MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
-    console.warn(`⚠️ MongoDB connection unavailable (${error.message}). Running with in-memory demo data store.`);
+    console.warn(`[Warning] MongoDB connection unavailable (${error.message}). Running with in-memory demo data store.`);
     isConnected = false;
   }
 };

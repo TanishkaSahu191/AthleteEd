@@ -12,7 +12,14 @@ import {
   Zap,
   ChevronDown,
   Dumbbell,
-  GraduationCap
+  GraduationCap,
+  Activity,
+  ShieldCheck,
+  Target,
+  Compass,
+  TrendingUp,
+  Clock,
+  Radio
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -23,7 +30,7 @@ export default function HomePage() {
       title: 'Tennis Academy',
       level: 'ITF / UTR / ATP Pathway',
       desc: '12 clay & hard courts, PlaySight video biomechanics, and former ATP/WTA coaching staff.',
-      icon: '🎾',
+      icon: Activity,
       badge: 'Championship Track',
       stats: '48 Resident Athletes · 14 National Titles'
     },
@@ -31,7 +38,7 @@ export default function HomePage() {
       title: 'Elite Football (Soccer)',
       level: 'UEFA Licensed Curriculum',
       desc: 'FIFA Quality Pro turf, positional intelligence, match play against international youth academies.',
-      icon: '⚽',
+      icon: ShieldCheck,
       badge: 'Pro Scout Network',
       stats: '52 Resident Athletes · 6 Pro Signings'
     },
@@ -39,7 +46,7 @@ export default function HomePage() {
       title: 'Basketball Prep',
       level: 'FIBA / NCAA Prep',
       desc: 'High-speed parquet courts, strength conditioning, tactical analytics, and shooting labs.',
-      icon: '🏀',
+      icon: Zap,
       badge: 'NCAA Division I Prep',
       stats: '36 Athletes · 100% College Placed'
     },
@@ -47,7 +54,7 @@ export default function HomePage() {
       title: 'Olympic Swimming',
       level: '50m Olympic Complex',
       desc: 'Biomechanical underwater stroke capture, physiological lactate profiling, and mental prep.',
-      icon: '🏊',
+      icon: Compass,
       badge: 'National Qualifying',
       stats: '28 Athletes · 3 Olympic Trials'
     },
@@ -55,7 +62,7 @@ export default function HomePage() {
       title: 'Track & Field Athletics',
       level: 'IAAF Certified Mondotrack',
       desc: 'Sprint mechanics, middle distance endurance, and injury-preventative loading protocols.',
-      icon: '🏃',
+      icon: TrendingUp,
       badge: 'Peak Velocity',
       stats: '24 Athletes · 8 State Records'
     },
@@ -63,7 +70,7 @@ export default function HomePage() {
       title: 'Golf Performance',
       level: 'TrackMan & PGA Coaches',
       desc: '18-hole championship access, swing speed optimization, and course strategy training.',
-      icon: '⛳',
+      icon: Target,
       badge: 'Junior Tour',
       stats: '16 Athletes · AJGA Exemptions'
     }
@@ -271,13 +278,19 @@ export default function HomePage() {
                   <span className="text-slate-500">Target Group:</span>
                   <span className="text-slate-900 font-bold">Elite Squad & Grade 10</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                   <span className="text-slate-500">Conflict Engine:</span>
-                  <span className="text-emerald-700 font-bold">100% Conflict-Free ✅</span>
+                  <span className="text-emerald-700 font-bold flex items-center gap-1">
+                    <CheckCircle className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>100% Conflict-Free</span>
+                  </span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                   <span className="text-slate-500">Parent Portal:</span>
-                  <span className="text-blue-700 font-bold">Real-Time Sync 📡</span>
+                  <span className="text-blue-700 font-bold flex items-center gap-1">
+                    <Radio className="w-3.5 h-3.5 text-blue-600" />
+                    <span>Real-Time Sync</span>
+                  </span>
                 </div>
               </div>
 
@@ -314,42 +327,45 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sports.map((s, idx) => (
-            <div
-              key={idx}
-              className="scroll-card-reveal bg-white border border-slate-200 hover:border-blue-400 rounded-2xl p-6 transition-all duration-300 group flex flex-col justify-between hover:-translate-y-1 shadow-sm hover:shadow-xl"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-3xl p-3 rounded-2xl bg-blue-50 border border-blue-200 group-hover:scale-110 group-hover:border-blue-300 transition-all duration-300">
-                    {s.icon}
-                  </span>
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
-                    {s.badge}
-                  </span>
+          {sports.map((s, idx) => {
+            const Icon = s.icon;
+            return (
+              <div
+                key={idx}
+                className="scroll-card-reveal bg-white border border-slate-200 hover:border-blue-400 rounded-2xl p-6 transition-all duration-300 group flex flex-col justify-between hover:-translate-y-1 shadow-sm hover:shadow-xl"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="p-3 rounded-2xl bg-blue-50 border border-blue-200 text-blue-900 group-hover:scale-110 group-hover:border-blue-300 transition-all duration-300">
+                      <Icon className="w-6 h-6 text-blue-800" />
+                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                      {s.badge}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-black text-blue-950 mb-1 group-hover:text-blue-700 transition-colors">
+                    {s.title}
+                  </h3>
+                  <div className="text-xs font-bold text-blue-700 mb-2">{s.level}</div>
+                  <p className="text-xs text-slate-600 leading-relaxed mb-4 font-medium">{s.desc}</p>
+                  <div className="text-[11px] text-slate-500 border-t border-slate-100 pt-3 font-semibold">
+                    <strong>Track Record:</strong> {s.stats}
+                  </div>
                 </div>
-                <h3 className="text-xl font-black text-blue-950 mb-1 group-hover:text-blue-700 transition-colors">
-                  {s.title}
-                </h3>
-                <div className="text-xs font-bold text-blue-700 mb-2">{s.level}</div>
-                <p className="text-xs text-slate-600 leading-relaxed mb-4 font-medium">{s.desc}</p>
-                <div className="text-[11px] text-slate-500 border-t border-slate-100 pt-3 font-semibold">
-                  <strong>Track Record:</strong> {s.stats}
-                </div>
-              </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                <span className="text-slate-500 font-medium">Residential Boarding</span>
-                <Link
-                  href="/admissions"
-                  className="font-bold text-blue-900 group-hover:text-blue-700 inline-flex items-center gap-1.5"
-                >
-                  <span>Apply Now</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                  <span className="text-slate-500 font-medium">Residential Boarding</span>
+                  <Link
+                    href="/admissions"
+                    className="font-bold text-blue-900 group-hover:text-blue-700 inline-flex items-center gap-1.5"
+                  >
+                    <span>Apply Now</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
@@ -411,8 +427,9 @@ export default function HomePage() {
                     <div className="font-bold text-slate-900">Daily Hostel Roll-Call</div>
                     <div className="text-[11px] text-slate-500">Olympus Hall 204-B · 08:30 PM Check-in</div>
                   </div>
-                  <span className="text-blue-900 font-bold bg-blue-100 px-2 py-1 rounded text-[10px] border border-blue-200">
-                    Present ✅
+                  <span className="text-blue-900 font-bold bg-blue-100 px-2.5 py-1 rounded text-[10px] border border-blue-200 flex items-center gap-1">
+                    <CheckCircle className="w-3 h-3 text-blue-700" />
+                    <span>Present</span>
                   </span>
                 </div>
 
@@ -421,7 +438,7 @@ export default function HomePage() {
                     <div className="font-bold text-slate-900">Tournament Outing Gate Pass</div>
                     <div className="text-[11px] text-slate-500">ITF Orlando Invitational · Nov 27-29</div>
                   </div>
-                  <span className="text-amber-900 font-bold bg-amber-100 px-2 py-1 rounded text-[10px] border border-amber-200">
+                  <span className="text-amber-900 font-bold bg-amber-100 px-2.5 py-1 rounded text-[10px] border border-amber-200">
                     Signed by Parent
                   </span>
                 </div>
@@ -431,8 +448,9 @@ export default function HomePage() {
                     <div className="font-bold text-slate-900">Physio Fitness Clearance</div>
                     <div className="text-[11px] text-slate-500">Ankle rehab complete · Full load authorized</div>
                   </div>
-                  <span className="text-emerald-900 font-bold bg-emerald-100 px-2 py-1 rounded text-[10px] border border-emerald-200">
-                    Cleared
+                  <span className="text-emerald-900 font-bold bg-emerald-100 px-2.5 py-1 rounded text-[10px] border border-emerald-200 flex items-center gap-1">
+                    <CheckCircle className="w-3 h-3 text-emerald-700" />
+                    <span>Cleared</span>
                   </span>
                 </div>
               </div>
