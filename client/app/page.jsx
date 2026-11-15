@@ -224,11 +224,10 @@ export default function HomePage() {
                 <div
                   key={index}
                   onClick={() => setActiveHour(index)}
-                  className={`scroll-card-reveal cursor-pointer p-6 rounded-2xl border transition-all duration-300 ${
-                    isSelected
-                      ? 'bg-white border-2 border-blue-900 shadow-lg shadow-blue-950/10 scale-[1.01]'
-                      : 'bg-white border border-slate-200 hover:border-slate-300 hover:shadow-sm'
-                  }`}
+                  className={`scroll-card-reveal cursor-pointer p-6 rounded-2xl border transition-all duration-300 ${isSelected
+                    ? 'bg-white border-2 border-blue-900 shadow-lg shadow-blue-950/10 scale-[1.01]'
+                    : 'bg-white border border-slate-200 hover:border-slate-300 hover:shadow-sm'
+                    }`}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
                     <div className="flex items-center gap-3.5">

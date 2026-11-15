@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Trophy, BookOpen, UserCheck, Calendar, ArrowRight } from 'lucide-react';
+import { UserCheck, ArrowRight } from 'lucide-react';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -20,8 +21,15 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-950 to-blue-900 flex items-center justify-center shadow-md shadow-blue-950/20 group-hover:scale-105 transition-transform text-white">
-              <Trophy className="w-5 h-5 text-amber-400" />
+            <div className="w-11 h-11 relative flex items-center justify-center group-hover:scale-105 transition-transform">
+              <Image
+                src="/logo.png"
+                alt="AthleteEd Logo"
+                width={48}
+                height={48}
+                className="w-11 h-11 object-contain drop-shadow-sm"
+                priority
+              />
             </div>
             <div>
               <span className="text-xl font-black tracking-tight text-blue-950 flex items-center gap-1">

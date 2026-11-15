@@ -6,6 +6,10 @@ import ScrollAnimationManager from '../components/ScrollAnimationManager';
 export const metadata = {
   title: 'AthleteEd | Sports Academy & Academic Boarding School',
   description: 'Where elite athletic coaching coexists seamlessly with accredited academic excellence. Live operations platform for student-athletes, coaches, parents, and faculty.',
+  icons: {
+    icon: '/logo.png',
+    apple: '/logo.png',
+  },
 };
 
 export default function RootLayout({ children }) {

@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Trophy, ShieldCheck, Mail, Phone, MapPin } from 'lucide-react';
+import Image from 'next/image';
+import { ShieldCheck, Mail, Phone, MapPin } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -8,16 +9,22 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand info */}
           <div className="md:col-span-1 space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold shadow-md">
-                <Trophy className="w-4 h-4 text-amber-300" />
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 rounded-full bg-white p-1 flex items-center justify-center shadow-md">
+                <Image
+                  src="/logo.png"
+                  alt="AthleteEd Logo"
+                  width={36}
+                  height={36}
+                  className="w-full h-full object-contain"
+                />
               </div>
-              <span className="text-lg font-bold text-white tracking-tight">Athlete<span className="text-blue-400">Ed</span></span>
+              <span className="text-xl font-black text-white tracking-tight">Athlete<span className="text-blue-400">Ed</span></span>
             </div>
-            <p className="text-xs text-slate-300 leading-relaxed">
+            <p className="text-xs text-slate-300 leading-relaxed font-medium">
               The premier hybrid residential academy uniting world-class Olympic coaching with accredited academic curricula.
             </p>
-            <div className="flex items-center gap-2 text-xs text-blue-300 font-medium">
+            <div className="flex items-center gap-2 text-xs text-blue-300 font-semibold">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
               <span>Accredited Academic Boarding Institution</span>
             </div>
@@ -68,7 +75,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-6 border-t border-blue-900/60 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
           <p>© 2026 AthleteEd Academy Inc. All rights reserved.</p>
-          <div className="flex space-x-6 text-slate-300">
+          <div className="flex space-x-6 text-slate-300 font-medium">
             <span className="hover:text-white">Privacy Policy (Minors DPDP Compliant)</span>
             <span className="hover:text-white">Terms of Boarding</span>
             <span className="hover:text-white">Security Audits</span>
