@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import AnimatedCounter from '../components/AnimatedCounter';
 import {
   Trophy,
   BookOpen,
@@ -182,19 +183,27 @@ export default function HomePage() {
             {/* KPI Badges with Dark Mode Hover */}
             <div className="pt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-sm hover:shadow-2xl hover:shadow-blue-950/40 hover:bg-[#071330] hover:border-blue-500/80 hover:-translate-y-1 transition-all duration-300 group">
-                <div className="text-3xl font-black text-blue-950 group-hover:text-white transition-colors duration-300">98%</div>
+                <div className="text-3xl font-black text-blue-950 group-hover:text-white transition-colors duration-300">
+                  <AnimatedCounter end={98} suffix="%" />
+                </div>
                 <div className="text-xs text-slate-500 group-hover:text-slate-300 font-semibold mt-1 transition-colors duration-300">Collegiate Placement</div>
               </div>
               <div className="p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-sm hover:shadow-2xl hover:shadow-blue-950/40 hover:bg-[#071330] hover:border-blue-500/80 hover:-translate-y-1 transition-all duration-300 group">
-                <div className="text-3xl font-black text-blue-700 group-hover:text-blue-400 transition-colors duration-300">1 : 8</div>
+                <div className="text-3xl font-black text-blue-700 group-hover:text-blue-400 transition-colors duration-300">
+                  1 : <AnimatedCounter end={8} />
+                </div>
                 <div className="text-xs text-slate-500 group-hover:text-slate-300 font-semibold mt-1 transition-colors duration-300">Coach-to-Athlete Ratio</div>
               </div>
               <div className="p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-sm hover:shadow-2xl hover:shadow-blue-950/40 hover:bg-[#071330] hover:border-blue-500/80 hover:-translate-y-1 transition-all duration-300 group">
-                <div className="text-3xl font-black text-blue-950 group-hover:text-white transition-colors duration-300">3.85</div>
+                <div className="text-3xl font-black text-blue-950 group-hover:text-white transition-colors duration-300">
+                  <AnimatedCounter end={3.85} decimals={2} />
+                </div>
                 <div className="text-xs text-slate-500 group-hover:text-slate-300 font-semibold mt-1 transition-colors duration-300">Average Student GPA</div>
               </div>
               <div className="p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-sm hover:shadow-2xl hover:shadow-blue-950/40 hover:bg-[#071330] hover:border-blue-500/80 hover:-translate-y-1 transition-all duration-300 group">
-                <div className="text-3xl font-black text-blue-700 group-hover:text-emerald-400 transition-colors duration-300">0</div>
+                <div className="text-3xl font-black text-blue-700 group-hover:text-emerald-400 transition-colors duration-300">
+                  <AnimatedCounter end={0} />
+                </div>
                 <div className="text-xs text-slate-500 group-hover:text-slate-300 font-semibold mt-1 transition-colors duration-300">Schedule Conflicts</div>
               </div>
             </div>

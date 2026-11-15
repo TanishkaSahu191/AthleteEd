@@ -15,7 +15,9 @@ import {
   ShieldAlert,
   ArrowRight,
   Sliders,
-  Check
+  Check,
+  LayoutGrid,
+  ListOrdered
 } from 'lucide-react';
 import { simulateScheduleConflict, resolveScheduleConflict } from '../lib/api';
 
@@ -23,6 +25,7 @@ export default function TimetableCalendar({ entries = [], conflictsDetected = fa
   const [localEntries, setLocalEntries] = useState(entries);
   const [selectedDay, setSelectedDay] = useState('Monday');
   const [filterType, setFilterType] = useState('all');
+  const [viewMode, setViewMode] = useState('daily'); // 'daily' | 'weekly'
 
   // Conflict Simulation State
   const [simulationActive, setSimulationActive] = useState(false);
@@ -186,6 +189,32 @@ export default function TimetableCalendar({ entries = [], conflictsDetected = fa
             </button>
           )}
 
+          {/* View Mode Toggle */}
+          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
+            <button
+              onClick={() => setViewMode('daily')}
+              className={`px-3 py-1 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all ${
+                viewMode === 'daily'
+                  ? 'bg-white text-blue-950 shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <ListOrdered className="w-3.5 h-3.5" />
+              <span>Daily List</span>
+            </button>
+            <button
+              onClick={() => setViewMode('weekly')}
+              className={`px-3 py-1 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all ${
+                viewMode === 'weekly'
+                  ? 'bg-white text-blue-950 shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <LayoutGrid className="w-3.5 h-3.5" />
+              <span>5-Day Matrix</span>
+            </button>
+          </div>
+
           {/* Filters */}
           <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
             <button
@@ -338,93 +367,220 @@ export default function TimetableCalendar({ entries = [], conflictsDetected = fa
         </div>
       )}
 
-      {/* Day tabs */}
-      <div className="flex space-x-2 border-b border-slate-100 pb-2 overflow-x-auto">
-        {days.map((day) => {
-          const isSelected = selectedDay === day;
-          return (
-            <button
-              key={day}
-              onClick={() => setSelectedDay(day)}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all ${
-                isSelected
-                  ? 'bg-blue-950 text-white shadow-sm'
-                  : 'text-slate-600 hover:text-blue-950 hover:bg-slate-100'
-              }`}
-            >
-              {day}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Timeline items */}
-      <div className="space-y-3">
-        {filteredEntries.length === 0 ? (
-          <div className="text-center py-12 text-slate-400 text-sm">
-            No schedule blocks found for {selectedDay} under current filter.
+      {/* ========================================================
+          DAILY LIST VIEW MODE
+          ======================================================== */}
+      {viewMode === 'daily' && (
+        <>
+          {/* Day tabs */}
+          <div className="flex space-x-2 border-b border-slate-100 pb-2 overflow-x-auto">
+            {days.map((day) => {
+              const isSelected = selectedDay === day;
+              return (
+                <button
+                  key={day}
+                  onClick={() => setSelectedDay(day)}
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all ${
+                    isSelected
+                      ? 'bg-blue-950 text-white shadow-sm'
+                      : 'text-slate-600 hover:text-blue-950 hover:bg-slate-100'
+                  }`}
+                >
+                  {day}
+                </button>
+              );
+            })}
           </div>
-        ) : (
-          filteredEntries.map((entry) => {
-            const isClashing =
-              simulationActive &&
-              simulationData &&
-              entry.id === simulationData.conflictingSession.id;
 
-            const isResolved = entry.isAiResolved;
-            const style = getTypeStyle(entry.type, isClashing, isResolved);
-            const Icon = style.icon;
-
-            return (
-              <div
-                key={entry.id}
-                className={`p-4 rounded-xl border transition-all ${style.card} flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-xs`}
-              >
-                <div className="flex items-start gap-3.5">
-                  <div className="p-2.5 rounded-lg bg-white border border-slate-200 text-blue-950 mt-0.5 shadow-xs">
-                    <Icon className="w-4 h-4 text-blue-800" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-sm font-black text-slate-900">{entry.title}</span>
-                      <span className={`text-[10px] uppercase px-2 py-0.5 rounded-full border ${style.badge}`}>
-                        {entry.type}
-                      </span>
-                      {isClashing && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-900 border border-rose-300">
-                          Academic Priority Protected
-                        </span>
-                      )}
-                      {isResolved && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300">
-                          AI Resolved
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex flex-wrap items-center gap-4 text-xs text-slate-600 mt-1.5 font-medium">
-                      <span className="flex items-center gap-1">
-                        <User className="w-3.5 h-3.5 text-slate-400" />
-                        {entry.instructor}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <MapPin className="w-3.5 h-3.5 text-slate-400" />
-                        {entry.location}
-                      </span>
-                      {entry.category && (
-                        <span className="text-slate-400">· {entry.category}</span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 text-xs font-mono font-bold text-blue-950 bg-white px-3 py-1.5 rounded-lg border border-slate-200 self-start md:self-auto shadow-xs">
-                  <Clock className="w-3.5 h-3.5 text-blue-700" />
-                  <span>{entry.startTime} – {entry.endTime}</span>
-                </div>
+          {/* Timeline items */}
+          <div className="space-y-3">
+            {filteredEntries.length === 0 ? (
+              <div className="text-center py-12 text-slate-400 text-sm">
+                No schedule blocks found for {selectedDay} under current filter.
               </div>
-            );
-          })
-        )}
+            ) : (
+              filteredEntries.map((entry) => {
+                const isClashing =
+                  simulationActive &&
+                  simulationData &&
+                  entry.id === simulationData.conflictingSession.id;
+
+                const isResolved = entry.isAiResolved;
+                const style = getTypeStyle(entry.type, isClashing, isResolved);
+                const Icon = style.icon;
+
+                return (
+                  <div
+                    key={entry.id}
+                    className={`p-4 rounded-xl border transition-all ${style.card} flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-xs`}
+                  >
+                    <div className="flex items-start gap-3.5">
+                      <div className="p-2.5 rounded-lg bg-white border border-slate-200 text-blue-950 mt-0.5 shadow-xs">
+                        <Icon className="w-4 h-4 text-blue-800" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-sm font-black text-slate-900">{entry.title}</span>
+                          <span className={`text-[10px] uppercase px-2 py-0.5 rounded-full border ${style.badge}`}>
+                            {entry.type}
+                          </span>
+                          {isClashing && (
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-900 border border-rose-300">
+                              Academic Priority Protected
+                            </span>
+                          )}
+                          {isResolved && (
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300">
+                              AI Resolved
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex flex-wrap items-center gap-4 text-xs text-slate-600 mt-1.5 font-medium">
+                          <span className="flex items-center gap-1">
+                            <User className="w-3.5 h-3.5 text-slate-400" />
+                            {entry.instructor}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                            {entry.location}
+                          </span>
+                          {entry.category && (
+                            <span className="text-slate-400">· {entry.category}</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 text-xs font-mono font-bold text-blue-950 bg-white px-3 py-1.5 rounded-lg border border-slate-200 self-start md:self-auto shadow-xs">
+                      <Clock className="w-3.5 h-3.5 text-blue-700" />
+                      <span>{entry.startTime} – {entry.endTime}</span>
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </>
+      )}
+
+      {/* ========================================================
+          WEEKLY 5-DAY MATRIX VIEW MODE
+          ======================================================== */}
+      {viewMode === 'weekly' && (
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+            {days.map((day) => {
+              const daySlots = localEntries
+                .filter(
+                  (e) =>
+                    e.day.toLowerCase() === day.toLowerCase() &&
+                    (filterType === 'all' || e.type === filterType)
+                )
+                .sort((a, b) => a.startTime.localeCompare(b.startTime));
+
+              return (
+                <div
+                  key={day}
+                  className="bg-slate-50/70 border border-slate-200/90 rounded-2xl p-3 flex flex-col space-y-2.5 shadow-2xs"
+                >
+                  {/* Day Column Header */}
+                  <div className="flex items-center justify-between pb-2 border-b border-slate-200/80 px-1">
+                    <div>
+                      <div className="text-xs font-black text-blue-950 uppercase tracking-wide">
+                        {day}
+                      </div>
+                      <div className="text-[10px] text-slate-400 font-medium">Full Schedule</div>
+                    </div>
+                    <span className="text-[10px] font-mono font-bold text-blue-900 bg-white px-2 py-0.5 rounded-full border border-slate-200 shadow-2xs">
+                      {daySlots.length} Slots
+                    </span>
+                  </div>
+
+                  {/* Day Slot Cards */}
+                  <div className="space-y-2 flex-1">
+                    {daySlots.length === 0 ? (
+                      <div className="text-[11px] text-slate-400 text-center py-8">
+                        No sessions matching filter
+                      </div>
+                    ) : (
+                      daySlots.map((entry) => {
+                        const isClashing =
+                          simulationActive &&
+                          simulationData &&
+                          entry.id === simulationData.conflictingSession.id;
+                        const isResolved = entry.isAiResolved;
+                        const style = getTypeStyle(entry.type, isClashing, isResolved);
+                        const Icon = style.icon;
+
+                        return (
+                          <div
+                            key={entry.id}
+                            className={`p-2.5 rounded-xl border text-xs space-y-1.5 transition-all shadow-2xs ${style.card}`}
+                          >
+                            <div className="flex items-center justify-between gap-1 flex-wrap">
+                              <span className="font-mono text-[10px] font-bold text-blue-950 bg-white/95 px-1.5 py-0.5 rounded border border-slate-200 shadow-2xs flex items-center gap-1">
+                                <Clock className="w-2.5 h-2.5 text-blue-700" />
+                                <span>{entry.startTime} – {entry.endTime}</span>
+                              </span>
+                              <span
+                                className={`text-[9px] uppercase px-1.5 py-0.2 rounded-full font-bold border ${style.badge}`}
+                              >
+                                {entry.type}
+                              </span>
+                            </div>
+
+                            <div className="font-black text-slate-900 text-xs leading-snug">
+                              {entry.title}
+                            </div>
+
+                            <div className="text-[10px] text-slate-500 flex items-center gap-1 font-medium truncate">
+                              <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
+                              <span className="truncate">{entry.location}</span>
+                            </div>
+
+                            {isClashing && (
+                              <div className="text-[9px] font-bold text-rose-900 bg-rose-100 px-1.5 py-0.5 rounded border border-rose-300">
+                                Protected Academic Block
+                              </div>
+                            )}
+                            {isResolved && (
+                              <div className="text-[9px] font-bold text-emerald-900 bg-emerald-100 px-1.5 py-0.5 rounded border border-emerald-300">
+                                AI Harmonized Slot
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================
+          THREE-PILLAR HARMONIZED LEGEND
+          ======================================================== */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-4 border-t border-slate-100 text-xs text-slate-600 font-medium">
+        <div className="flex items-center gap-4 flex-wrap">
+          <span className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-blue-700" />
+            <span className="text-slate-800 font-bold">Elite Athletic Training</span>
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-indigo-700" />
+            <span className="text-slate-800 font-bold">Accredited Academic Core (AP/STEM)</span>
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-600" />
+            <span className="text-slate-800 font-bold">Boarding, Chef Nutrition & Recovery</span>
+          </span>
+        </div>
+        <span className="text-[11px] font-mono text-slate-400 font-medium">
+          PRD §4.3 Non-Conflicting Academic Guarantee
+        </span>
       </div>
     </div>
   );

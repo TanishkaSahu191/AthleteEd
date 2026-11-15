@@ -6,6 +6,8 @@ import TimetableCalendar from '../../components/TimetableCalendar';
 import AdmissionsKanban from '../../components/AdmissionsKanban';
 import SportsTelemetry from '../../components/SportsTelemetry';
 import DigitalGatePassModal from '../../components/DigitalGatePassModal';
+import CourtHeatmap from '../../components/CourtHeatmap';
+import BoardingNutrition from '../../components/BoardingNutrition';
 import {
   getApplications,
   getTimetable,
@@ -705,6 +707,9 @@ export default function PortalPage() {
           {/* Coach Live Sports Science & GPS Telemetry Feed */}
           <SportsTelemetry studentName="Leo Jenkins" sport="Tennis Elite U-16 Squad" />
 
+          {/* Biomechanical Court Shot & Ace Heatmap */}
+          <CourtHeatmap athleteName="Leo Jenkins" sport="Tennis" />
+
           <TimetableCalendar entries={timetableData.entries} conflictsDetected={false} />
         </div>
       )}
@@ -964,6 +969,9 @@ export default function PortalPage() {
             </div>
           </div>
 
+          {/* Chef Julian Ross Boarding Nutrition & Daily Meals Plan */}
+          <BoardingNutrition studentName="Leo Jenkins" />
+
           {/* Child Timetable */}
           <TimetableCalendar entries={timetableData.entries} conflictsDetected={false} />
         </div>
@@ -1011,6 +1019,12 @@ export default function PortalPage() {
 
           {/* Student Biometrics & Telemetry Feed */}
           <SportsTelemetry studentName="Leo Jenkins" sport="Tennis Elite U-16 Squad" />
+
+          {/* Biomechanical Court Heatmap */}
+          <CourtHeatmap athleteName="Leo Jenkins" sport="Tennis" />
+
+          {/* Daily Chef Boarding Nutrition Plan */}
+          <BoardingNutrition studentName="Leo Jenkins" />
 
           <TimetableCalendar entries={timetableData.entries} conflictsDetected={false} />
         </div>

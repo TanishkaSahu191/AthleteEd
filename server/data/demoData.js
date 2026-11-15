@@ -355,6 +355,18 @@ const timetableEntries = [
     targetGroup: "Elite U-16 Squad"
   },
   {
+    id: "tt_10_b",
+    day: "Tuesday",
+    startTime: "08:15",
+    endTime: "09:00",
+    type: "boarding",
+    title: "Nutritional Breakfast & Hydration Log",
+    category: "Boarding / Wellness",
+    instructor: "Dining Hall Staff",
+    location: "Olympus Hall Dining",
+    targetGroup: "All Boarders"
+  },
+  {
     id: "tt_11",
     day: "Tuesday",
     startTime: "09:15",
@@ -379,6 +391,18 @@ const timetableEntries = [
     targetGroup: "Grade 10"
   },
   {
+    id: "tt_12_b",
+    day: "Tuesday",
+    startTime: "12:45",
+    endTime: "13:45",
+    type: "boarding",
+    title: "Chef Lunch & Cold Plunge Hydrotherapy",
+    category: "Recovery",
+    instructor: "Sports Science Team",
+    location: "Aquatic Center & Dining",
+    targetGroup: "All Boarders"
+  },
+  {
     id: "tt_13",
     day: "Tuesday",
     startTime: "15:30",
@@ -389,6 +413,348 @@ const timetableEntries = [
     instructor: "Coach David Miller",
     location: "Center Court & AV Suite",
     targetGroup: "Elite U-16 Squad"
+  },
+  {
+    id: "tt_13_b",
+    day: "Tuesday",
+    startTime: "19:00",
+    endTime: "20:00",
+    type: "boarding",
+    title: "Dinner & Peer Boarding Forum",
+    category: "Boarding",
+    instructor: "Arthur Pendelton",
+    location: "Olympus Hall",
+    targetGroup: "All Boarders"
+  },
+  {
+    id: "tt_13_c",
+    day: "Tuesday",
+    startTime: "20:15",
+    endTime: "21:30",
+    type: "academic",
+    title: "Supervised Study Hall & Tutoring",
+    category: "Academic Support",
+    instructor: "Academic Faculty",
+    location: "Library Hub",
+    targetGroup: "Grade 10"
+  },
+
+  // Wednesday
+  {
+    id: "tt_14",
+    day: "Wednesday",
+    startTime: "06:30",
+    endTime: "08:00",
+    type: "training",
+    title: "Aerobic Base & Hydro-Recovery Conditioning",
+    category: "Conditioning",
+    instructor: "Coach Rebecca Vance",
+    location: "50m Olympic Pool & Gym",
+    targetGroup: "Elite U-16 Squad"
+  },
+  {
+    id: "tt_15",
+    day: "Wednesday",
+    startTime: "08:15",
+    endTime: "09:00",
+    type: "boarding",
+    title: "Breakfast & Electrolyte Balancing Check",
+    category: "Boarding / Wellness",
+    instructor: "Dining Staff",
+    location: "Olympus Dining Hall",
+    targetGroup: "All Boarders"
+  },
+  {
+    id: "tt_16",
+    day: "Wednesday",
+    startTime: "09:15",
+    endTime: "10:45",
+    type: "academic",
+    title: "AP Physics: Kinetic Energy & Angular Racket Mechanics",
+    category: "STEM / Science",
+    instructor: "Dr. Elena Rostova",
+    location: "Academic Wing - Lab 3",
+    targetGroup: "Grade 10"
+  },
+  {
+    id: "tt_17",
+    day: "Wednesday",
+    startTime: "11:00",
+    endTime: "12:30",
+    type: "academic",
+    title: "Advanced Math: Probability Distributions & Game Theory",
+    category: "Mathematics",
+    instructor: "Prof. Kenneth Shaw",
+    location: "Academic Wing - Room 201",
+    targetGroup: "Grade 10"
+  },
+  {
+    id: "tt_18",
+    day: "Wednesday",
+    startTime: "12:30",
+    endTime: "13:30",
+    type: "boarding",
+    title: "Balanced Chef Lunch & Mindfulness Meditation",
+    category: "Recovery",
+    instructor: "Residential Staff",
+    location: "Olympus Hall Lounge",
+    targetGroup: "All Boarders"
+  },
+  {
+    id: "tt_19",
+    day: "Wednesday",
+    startTime: "14:00",
+    endTime: "15:30",
+    type: "academic",
+    title: "World History: Ancient Olympic Ethics to Modern Sport",
+    category: "Humanities",
+    instructor: "Ms. Clara Higgins",
+    location: "Academic Wing - Room 108",
+    targetGroup: "Grade 10"
+  },
+  {
+    id: "tt_20",
+    day: "Wednesday",
+    startTime: "16:00",
+    endTime: "18:30",
+    type: "training",
+    title: "Match Play Simulation: High-Pressure Break Points",
+    category: "Sport-Specific Mastery",
+    instructor: "Coach David Miller",
+    location: "Tennis Courts 1 - 4",
+    targetGroup: "Elite U-16 Squad"
+  },
+  {
+    id: "tt_21",
+    day: "Wednesday",
+    startTime: "19:00",
+    endTime: "20:00",
+    type: "boarding",
+    title: "Dinner & Sports Psychology Workshop",
+    category: "Wellness",
+    instructor: "Dr. Maya Lin",
+    location: "Dining Hall & Auditorium",
+    targetGroup: "All Boarders"
+  },
+  {
+    id: "tt_22",
+    day: "Wednesday",
+    startTime: "20:15",
+    endTime: "21:30",
+    type: "academic",
+    title: "Peer Study Groups & STEM Project Collaboration",
+    category: "Academic Support",
+    instructor: "Academic Tutors",
+    location: "Library Study Center",
+    targetGroup: "Grade 10"
+  },
+
+  // Thursday
+  {
+    id: "tt_23",
+    day: "Thursday",
+    startTime: "06:45",
+    endTime: "08:00",
+    type: "training",
+    title: "Plyometric Explosiveness & Reaction Lights Drill",
+    category: "Physical Preparation",
+    instructor: "Coach David Miller",
+    location: "High-Performance Gym",
+    targetGroup: "Elite U-16 Squad"
+  },
+  {
+    id: "tt_24",
+    day: "Thursday",
+    startTime: "08:15",
+    endTime: "09:00",
+    type: "boarding",
+    title: "Hot Breakfast & Daily Wellness Survey",
+    category: "Boarding / Wellness",
+    instructor: "Dining Staff",
+    location: "Olympus Dining Hall",
+    targetGroup: "All Boarders"
+  },
+  {
+    id: "tt_25",
+    day: "Thursday",
+    startTime: "09:15",
+    endTime: "11:00",
+    type: "academic",
+    title: "Biology: Muscle Physiology & Lactate Clearance",
+    category: "STEM / Science",
+    instructor: "Dr. Maya Lin",
+    location: "Sports Science Lab",
+    targetGroup: "Grade 10"
+  },
+  {
+    id: "tt_26",
+    day: "Thursday",
+    startTime: "11:15",
+    endTime: "12:45",
+    type: "academic",
+    title: "English: Rhetoric, Public Speaking & Press Conferences",
+    category: "Humanities",
+    instructor: "Ms. Clara Higgins",
+    location: "Academic Wing - Room 108",
+    targetGroup: "Grade 10"
+  },
+  {
+    id: "tt_27",
+    day: "Thursday",
+    startTime: "12:45",
+    endTime: "13:45",
+    type: "boarding",
+    title: "High-Protein Lunch & Recovery Nap Window",
+    category: "Recovery",
+    instructor: "Residential Staff",
+    location: "Olympus Hall",
+    targetGroup: "All Boarders"
+  },
+  {
+    id: "tt_28",
+    day: "Thursday",
+    startTime: "15:30",
+    endTime: "18:00",
+    type: "training",
+    title: "Serve Precision Targeting & Second-Serve Kick Consistency",
+    category: "Tactical & Technical",
+    instructor: "Coach David Miller",
+    location: "Center Court",
+    targetGroup: "Elite U-16 Squad"
+  },
+  {
+    id: "tt_29",
+    day: "Thursday",
+    startTime: "19:00",
+    endTime: "20:00",
+    type: "boarding",
+    title: "Nutritional Dinner & Film Room Tactical Analysis",
+    category: "Boarding",
+    instructor: "Coaching Staff",
+    location: "Dining Hall & AV Suite",
+    targetGroup: "All Boarders"
+  },
+  {
+    id: "tt_30",
+    day: "Thursday",
+    startTime: "20:15",
+    endTime: "21:30",
+    type: "academic",
+    title: "Supervised Evening Study Hall & 1-on-1 Tutoring",
+    category: "Academic Support",
+    instructor: "Academic Faculty",
+    location: "Library Hub",
+    targetGroup: "Grade 10"
+  },
+
+  // Friday
+  {
+    id: "tt_31",
+    day: "Friday",
+    startTime: "06:30",
+    endTime: "07:45",
+    type: "training",
+    title: "Dynamic Mobility, Foam Rolling & Core Anti-Rotation",
+    category: "Physical Preparation",
+    instructor: "Coach Marcus Vance",
+    location: "High-Performance Gym",
+    targetGroup: "Elite U-16 Squad"
+  },
+  {
+    id: "tt_32",
+    day: "Friday",
+    startTime: "08:00",
+    endTime: "08:45",
+    type: "boarding",
+    title: "Pre-Match Carb-Load Breakfast & Hydration Screening",
+    category: "Boarding / Wellness",
+    instructor: "Dining Staff",
+    location: "Olympus Dining Hall",
+    targetGroup: "All Boarders"
+  },
+  {
+    id: "tt_33",
+    day: "Friday",
+    startTime: "09:00",
+    endTime: "10:30",
+    type: "academic",
+    title: "AP Physics: Lab Experiment & Kinematic Data Defense",
+    category: "STEM / Science",
+    instructor: "Dr. Elena Rostova",
+    location: "Academic Wing - Lab 3",
+    targetGroup: "Grade 10"
+  },
+  {
+    id: "tt_34",
+    day: "Friday",
+    startTime: "10:45",
+    endTime: "12:15",
+    type: "academic",
+    title: "Advanced Math: Weekly Problem-Set Evaluation & Exam Prep",
+    category: "Mathematics",
+    instructor: "Prof. Kenneth Shaw",
+    location: "Academic Wing - Room 201",
+    targetGroup: "Grade 10"
+  },
+  {
+    id: "tt_35",
+    day: "Friday",
+    startTime: "12:15",
+    endTime: "13:15",
+    type: "boarding",
+    title: "Chef Lunch & Weekend Tournament Briefing",
+    category: "Recovery",
+    instructor: "Arthur Pendelton",
+    location: "Olympus Dining Hall",
+    targetGroup: "All Boarders"
+  },
+  {
+    id: "tt_36",
+    day: "Friday",
+    startTime: "13:30",
+    endTime: "15:00",
+    type: "academic",
+    title: "College Admissions & NCAA / ITF Compliance Seminar",
+    category: "Guidance & Pathways",
+    instructor: "Academic Guidance Team",
+    location: "Main Auditorium",
+    targetGroup: "Grade 10"
+  },
+  {
+    id: "tt_37",
+    day: "Friday",
+    startTime: "15:30",
+    endTime: "18:00",
+    type: "training",
+    title: "Intra-Academy Championship Match Play (Best of 3 Sets)",
+    category: "Sport-Specific Mastery",
+    instructor: "Coach David Miller",
+    location: "Tennis Courts 1 - 4",
+    targetGroup: "Elite U-16 Squad"
+  },
+  {
+    id: "tt_38",
+    day: "Friday",
+    startTime: "18:30",
+    endTime: "19:30",
+    type: "boarding",
+    title: "Weekend Kickoff Athlete Community Dinner",
+    category: "Boarding",
+    instructor: "Dining Staff",
+    location: "Olympus Dining Hall",
+    targetGroup: "All Boarders"
+  },
+  {
+    id: "tt_39",
+    day: "Friday",
+    startTime: "19:45",
+    endTime: "21:00",
+    type: "boarding",
+    title: "Hostel Residence Check-In & Gate Pass Review",
+    category: "Boarding Oversight",
+    instructor: "Arthur Pendelton",
+    location: "Olympus Hall Lobby",
+    targetGroup: "All Boarders"
   }
 ];
 
