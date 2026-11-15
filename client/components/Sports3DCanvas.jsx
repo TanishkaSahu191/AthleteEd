@@ -1,16 +1,10 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { RotateCw, Compass, Crosshair } from 'lucide-react';
 
 export default function Sports3DCanvas() {
   const mountRef = useRef(null);
-  const [activeFocus, setActiveFocus] = useState('all'); // 'all' | 'soccer' | 'tennis' | 'basketball' | 'track'
-
-  // References to communicate with Three.js loop
-  const focusRef = useRef('all');
-  focusRef.current = activeFocus;
 
   useEffect(() => {
     if (!mountRef.current) return;
@@ -215,7 +209,7 @@ export default function Sports3DCanvas() {
     window.addEventListener('resize', onResize);
 
     // ==========================================
-    // ANIMATION LOOP WITH TARGET FOCUS LERPING
+    // ANIMATION LOOP (SMOOTH SCROLL GLIDE)
     // ==========================================
     let animationFrameId;
     let clock = new THREE.Clock();
@@ -235,31 +229,11 @@ export default function Sports3DCanvas() {
 
       const scrollFactor = currentScrollY * 0.0035;
 
-      // Calculate Target Camera Position based on Focus Mode
-      let desiredCamX = currentMouseX * 0.6;
-      let desiredCamY = -currentScrollY * 0.007 + currentMouseY * 0.4;
-      let desiredCamZ = 14;
+      // Camera position driven by scroll & subtle mouse deflection
+      const desiredCamX = currentMouseX * 0.6;
+      const desiredCamY = -currentScrollY * 0.007 + currentMouseY * 0.4;
+      const desiredCamZ = 14;
 
-      const currentFocus = focusRef.current;
-      if (currentFocus === 'soccer') {
-        desiredCamX = 4.2 + currentMouseX * 0.3;
-        desiredCamY = 1.2 + currentMouseY * 0.3;
-        desiredCamZ = 7.5;
-      } else if (currentFocus === 'tennis') {
-        desiredCamX = -4.5 + currentMouseX * 0.3;
-        desiredCamY = -7.5 + currentMouseY * 0.3;
-        desiredCamZ = 7.5;
-      } else if (currentFocus === 'basketball') {
-        desiredCamX = 4.0 + currentMouseX * 0.3;
-        desiredCamY = -15.5 + currentMouseY * 0.3;
-        desiredCamZ = 7.5;
-      } else if (currentFocus === 'track') {
-        desiredCamX = -0.5 + currentMouseX * 0.4;
-        desiredCamY = 0 + currentMouseY * 0.4;
-        desiredCamZ = 10.5;
-      }
-
-      // Smooth camera translation
       camera.position.x += (desiredCamX - camera.position.x) * 0.08;
       camera.position.y += (desiredCamY - camera.position.y) * 0.08;
       camera.position.z += (desiredCamZ - camera.position.z) * 0.08;
@@ -307,52 +281,10 @@ export default function Sports3DCanvas() {
   }, []);
 
   return (
-    <>
-      {/* 3D WebGL Background Canvas (Fixed behind content, pointer-events-none) */}
-      <div
-        ref={mountRef}
-        aria-hidden="true"
-        className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-90 transition-opacity duration-700"
-      />
-
-      {/* Floating 3D Sports Camera Controller & HUD (Eye-catching interactive controller) */}
-      <div className="fixed bottom-5 right-5 z-30 pointer-events-auto flex items-center gap-1.5 bg-white/95 backdrop-blur-md border border-slate-200/90 p-1.5 rounded-2xl shadow-xl shadow-blue-950/10 text-xs text-blue-950 font-bold transition-all">
-        <div className="flex items-center gap-1.5 px-2.5 py-1">
-          <span className="flex h-2 w-2 relative">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-700"></span>
-          </span>
-          <span className="font-mono text-[11px] font-black uppercase tracking-wider text-blue-950 hidden md:inline">
-            3D Focus:
-          </span>
-        </div>
-
-        {/* 3D Sport Camera Focus Buttons */}
-        <div className="flex items-center gap-1">
-          {[
-            { id: 'all', label: 'All Arena' },
-            { id: 'soccer', label: 'Football' },
-            { id: 'tennis', label: 'Tennis' },
-            { id: 'basketball', label: 'Basketball' },
-            { id: 'track', label: 'Stadium' },
-          ].map((sport) => {
-            const isSelected = activeFocus === sport.id;
-            return (
-              <button
-                key={sport.id}
-                onClick={() => setActiveFocus(sport.id)}
-                className={`px-2.5 py-1 rounded-xl text-[11px] font-bold transition-all ${
-                  isSelected
-                    ? 'bg-blue-900 text-white shadow-xs'
-                    : 'text-slate-600 hover:text-blue-950 hover:bg-slate-100'
-                }`}
-              >
-                {sport.label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-    </>
+    <div
+      ref={mountRef}
+      aria-hidden="true"
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-90 transition-opacity duration-700"
+    />
   );
 }
