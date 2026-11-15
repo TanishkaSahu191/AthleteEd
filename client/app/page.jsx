@@ -179,23 +179,23 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* KPI Badges */}
+            {/* KPI Badges with Dark Mode Hover */}
             <div className="pt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
-                <div className="text-3xl font-black text-blue-950">98%</div>
-                <div className="text-xs text-slate-500 font-semibold mt-1">Collegiate Placement</div>
+              <div className="p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-sm hover:shadow-2xl hover:shadow-blue-950/40 hover:bg-[#071330] hover:border-blue-500/80 hover:-translate-y-1 transition-all duration-300 group">
+                <div className="text-3xl font-black text-blue-950 group-hover:text-white transition-colors duration-300">98%</div>
+                <div className="text-xs text-slate-500 group-hover:text-slate-300 font-semibold mt-1 transition-colors duration-300">Collegiate Placement</div>
               </div>
-              <div className="p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
-                <div className="text-3xl font-black text-blue-700">1 : 8</div>
-                <div className="text-xs text-slate-500 font-semibold mt-1">Coach-to-Athlete Ratio</div>
+              <div className="p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-sm hover:shadow-2xl hover:shadow-blue-950/40 hover:bg-[#071330] hover:border-blue-500/80 hover:-translate-y-1 transition-all duration-300 group">
+                <div className="text-3xl font-black text-blue-700 group-hover:text-blue-400 transition-colors duration-300">1 : 8</div>
+                <div className="text-xs text-slate-500 group-hover:text-slate-300 font-semibold mt-1 transition-colors duration-300">Coach-to-Athlete Ratio</div>
               </div>
-              <div className="p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
-                <div className="text-3xl font-black text-blue-950">3.85</div>
-                <div className="text-xs text-slate-500 font-semibold mt-1">Average Student GPA</div>
+              <div className="p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-sm hover:shadow-2xl hover:shadow-blue-950/40 hover:bg-[#071330] hover:border-blue-500/80 hover:-translate-y-1 transition-all duration-300 group">
+                <div className="text-3xl font-black text-blue-950 group-hover:text-white transition-colors duration-300">3.85</div>
+                <div className="text-xs text-slate-500 group-hover:text-slate-300 font-semibold mt-1 transition-colors duration-300">Average Student GPA</div>
               </div>
-              <div className="p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
-                <div className="text-3xl font-black text-blue-700">0</div>
-                <div className="text-xs text-slate-500 font-semibold mt-1">Schedule Conflicts</div>
+              <div className="p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-sm hover:shadow-2xl hover:shadow-blue-950/40 hover:bg-[#071330] hover:border-blue-500/80 hover:-translate-y-1 transition-all duration-300 group">
+                <div className="text-3xl font-black text-blue-700 group-hover:text-emerald-400 transition-colors duration-300">0</div>
+                <div className="text-xs text-slate-500 group-hover:text-slate-300 font-semibold mt-1 transition-colors duration-300">Schedule Conflicts</div>
               </div>
             </div>
 
@@ -341,7 +341,7 @@ export default function HomePage() {
             return (
               <div
                 key={idx}
-                className="scroll-card-reveal bg-white border border-slate-200 hover:border-blue-400 rounded-2xl overflow-hidden transition-all duration-300 group flex flex-col justify-between hover:-translate-y-1 shadow-sm hover:shadow-xl"
+                className="scroll-card-reveal bg-white border border-slate-200 rounded-2xl overflow-hidden transition-all duration-300 group flex flex-col justify-between hover:-translate-y-1.5 shadow-sm hover:shadow-2xl hover:shadow-blue-950/40 hover:bg-[#071330] hover:border-blue-500/80"
               >
                 <div>
                   {/* Reference Image with Zoom Hover */}
@@ -350,35 +350,41 @@ export default function HomePage() {
                       src={s.image}
                       alt={s.title}
                       fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
-                    <span className="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-blue-950 shadow-sm">
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
+                    <span className="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-blue-950 shadow-sm group-hover:bg-blue-900/90 group-hover:text-blue-100 group-hover:border group-hover:border-blue-500 transition-colors duration-300">
                       {s.badge}
                     </span>
-                    <div className="absolute bottom-3 left-3 p-2 rounded-xl bg-white/95 backdrop-blur-md text-blue-900 shadow-md">
-                      <Icon className="w-5 h-5 text-blue-800" />
+                    <div className="absolute bottom-3 left-3 p-2 rounded-xl bg-white/95 backdrop-blur-md text-blue-900 shadow-md group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                      <Icon className="w-5 h-5 text-blue-800 group-hover:text-white transition-colors duration-300" />
                     </div>
                   </div>
 
                   <div className="p-6">
-                    <h3 className="text-xl font-black text-blue-950 mb-1 group-hover:text-blue-700 transition-colors">
+                    <h3 className="text-xl font-black text-blue-950 mb-1 group-hover:text-white transition-colors duration-300">
                       {s.title}
                     </h3>
-                    <div className="text-xs font-bold text-blue-700 mb-2">{s.level}</div>
-                    <p className="text-xs text-slate-600 leading-relaxed mb-4 font-medium">{s.desc}</p>
-                    <div className="text-[11px] text-slate-500 border-t border-slate-100 pt-3 font-semibold">
-                      <strong>Track Record:</strong> {s.stats}
+                    <div className="text-xs font-bold text-blue-700 mb-2 group-hover:text-blue-400 transition-colors duration-300">
+                      {s.level}
+                    </div>
+                    <p className="text-xs text-slate-600 leading-relaxed mb-4 font-medium group-hover:text-slate-300 transition-colors duration-300">
+                      {s.desc}
+                    </p>
+                    <div className="text-[11px] text-slate-500 border-t border-slate-100 group-hover:border-slate-800/80 pt-3 font-semibold group-hover:text-slate-400 transition-colors duration-300">
+                      Track Record: <span className="text-slate-800 font-bold group-hover:text-white transition-colors duration-300">{s.stats}</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="px-6 pb-6 pt-2 flex items-center justify-between text-xs">
-                  <span className="text-slate-500 font-medium">Residential Boarding</span>
+                  <span className="text-slate-500 group-hover:text-slate-400 transition-colors duration-300 font-medium">
+                    Residential Boarding
+                  </span>
                   <Link
                     href="/admissions"
-                    className="font-bold text-blue-900 group-hover:text-blue-700 inline-flex items-center gap-1.5"
+                    className="font-bold text-blue-900 group-hover:text-blue-400 inline-flex items-center gap-1.5 group-hover:translate-x-1.5 transition-all"
                   >
                     <span>Apply Now</span>
                     <ArrowRight className="w-3.5 h-3.5" />
