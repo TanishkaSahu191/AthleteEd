@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import RoleSwitcher from '../../components/RoleSwitcher';
 import TimetableCalendar from '../../components/TimetableCalendar';
 import AdmissionsKanban from '../../components/AdmissionsKanban';
+import SportsTelemetry from '../../components/SportsTelemetry';
+import DigitalGatePassModal from '../../components/DigitalGatePassModal';
 import {
   getApplications,
   getTimetable,
@@ -69,6 +71,29 @@ export default function PortalPage() {
   const [medicalBroadcastSuccess, setMedicalBroadcastSuccess] = useState(false);
   const [coachAcknowledged, setCoachAcknowledged] = useState(false);
   const [parentAcknowledged, setParentAcknowledged] = useState(false);
+
+  // Digital Gate Pass Modal State (US-07)
+  const [gatePassModalOpen, setGatePassModalOpen] = useState(false);
+  const [selectedPassData, setSelectedPassData] = useState(null);
+
+  const handleOpenGatePass = (req = null) => {
+    setSelectedPassData({
+      passId: req ? `PASS-AE-2026-${req.id}` : 'PASS-AE-2026-088-USTA',
+      studentName: 'Leo Jenkins',
+      admissionNo: 'AE-2026-088',
+      gradeLevel: 'Grade 10',
+      dormRoom: 'Olympus Hall 204-B',
+      type: req ? req.type : 'Tournament Travel Leave',
+      destination: req ? req.destination : 'USTA National Campus, Orlando, FL',
+      reason: req ? req.reason : 'ITF Grade 4 Junior Invitational Tennis Championship',
+      departureTime: req?.fromDate ? new Date(req.fromDate).toLocaleString() : 'Nov 27, 2026 · 06:00 AM',
+      curfewDeadline: req?.toDate ? new Date(req.toDate).toLocaleString() : 'Nov 29, 2026 · 22:00 PM',
+      parentSignoff: 'Sarah Jenkins (Verified Parent)',
+      wardenSignoff: 'Arthur Pendelton (Olympus Head Warden)',
+      status: 'AUTHORIZED FOR DEPARTURE'
+    });
+    setGatePassModalOpen(true);
+  };
 
   // Interaction feedback states
   const [paymentSuccess, setPaymentSuccess] = useState(false);
@@ -677,6 +702,9 @@ export default function PortalPage() {
             </div>
           </div>
 
+          {/* Coach Live Sports Science & GPS Telemetry Feed */}
+          <SportsTelemetry studentName="Leo Jenkins" sport="Tennis Elite U-16 Squad" />
+
           <TimetableCalendar entries={timetableData.entries} conflictsDetected={false} />
         </div>
       )}
@@ -851,9 +879,18 @@ export default function PortalPage() {
                   )}
 
                   {req.parentApprovalStatus === 'Approved' && (
-                    <div className="p-2.5 rounded-lg bg-blue-50 border border-blue-200 text-blue-900 text-[11px] font-semibold flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-700" />
-                      <span>Approved by parent. Forwarded to Head Warden for gate pass generation.</span>
+                    <div className="p-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-900 text-[11px] font-semibold flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                      <div className="flex items-center gap-1.5">
+                        <CheckCircle2 className="w-4 h-4 text-blue-700 shrink-0" />
+                        <span>Approved by parent. Signed by Warden Pendelton.</span>
+                      </div>
+                      <button
+                        onClick={() => handleOpenGatePass(req)}
+                        className="px-3 py-1.5 rounded-lg bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs whitespace-nowrap shadow-xs flex items-center justify-center gap-1"
+                      >
+                        <ShieldCheck className="w-3.5 h-3.5" />
+                        <span>View Digital Gate Pass (QR)</span>
+                      </button>
                     </div>
                   )}
                 </div>
@@ -937,25 +974,43 @@ export default function PortalPage() {
           ======================================================== */}
       {activeRole === 'student' && (
         <div className="space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
               <span className="text-xs text-slate-500 font-semibold">Daily Schedule Status</span>
               <div className="text-lg font-black text-blue-950 mt-1">3 Classes · 2 Training Blocks</div>
-              <div className="text-xs text-blue-700 mt-1 font-bold">No Overlaps / Full Recovery Rest</div>
+              <div className="text-xs text-blue-700 mt-1 font-bold">No Overlaps / Full Rest</div>
             </div>
             <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
               <span className="text-xs text-slate-500 font-semibold">Head Coach Evaluation</span>
-              <div className="text-lg font-black text-blue-950 mt-1">Serve Velocity: 114 MPH</div>
-              <div className="text-xs text-slate-600 mt-1 font-medium">"Excellent forehand cross-court accuracy."</div>
+              <div className="text-lg font-black text-blue-950 mt-1">Serve: 114 MPH</div>
+              <div className="text-xs text-slate-600 mt-1 font-medium">"High forehand cross-court accuracy."</div>
             </div>
             <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
-              <span className="text-xs text-slate-500 font-semibold">Physio Training Clearance</span>
-              <div className="text-lg font-black text-blue-950 mt-1">{athleteHealth.clearanceStatus}</div>
+              <span className="text-xs text-slate-500 font-semibold">Physio Clearance</span>
+              <div className="text-lg font-black text-blue-950 mt-1">{athleteHealth.clearanceStatus.split('-')[0]}</div>
               <div className="text-xs text-slate-600 mt-1 font-medium">
                 {isMedicalAlertActive ? 'Follow cryo schedule at 15:30' : 'Full tournament load permitted'}
               </div>
             </div>
+            <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+              <div>
+                <span className="text-xs text-slate-500 font-semibold">Digital Dorm Gate Pass</span>
+                <div className="text-sm font-black text-blue-950 mt-1 truncate">USTA National Campus, FL</div>
+                <div className="text-xs text-emerald-700 font-bold">Authorized for Departure</div>
+              </div>
+              <button
+                type="button"
+                onClick={() => handleOpenGatePass()}
+                className="mt-3 py-2 px-3 rounded-lg bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all"
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-blue-200" />
+                <span>Show Gate Pass (QR)</span>
+              </button>
+            </div>
           </div>
+
+          {/* Student Biometrics & Telemetry Feed */}
+          <SportsTelemetry studentName="Leo Jenkins" sport="Tennis Elite U-16 Squad" />
 
           <TimetableCalendar entries={timetableData.entries} conflictsDetected={false} />
         </div>
@@ -997,6 +1052,13 @@ export default function PortalPage() {
           <TimetableCalendar entries={timetableData.entries} conflictsDetected={false} />
         </div>
       )}
+
+      {/* Digital Gate Pass Modal (US-07) */}
+      <DigitalGatePassModal
+        isOpen={gatePassModalOpen}
+        onClose={() => setGatePassModalOpen(false)}
+        passData={selectedPassData}
+      />
     </div>
   );
 }

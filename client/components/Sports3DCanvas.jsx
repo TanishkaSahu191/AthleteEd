@@ -2,17 +2,19 @@
 
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { Compass, RotateCw, Eye } from 'lucide-react';
+import { RotateCw, Compass, Crosshair } from 'lucide-react';
 
 export default function Sports3DCanvas() {
   const mountRef = useRef(null);
-  const [is3DActive, setIs3DActive] = useState(true);
-  const [scrollSpeedIndicator, setScrollSpeedIndicator] = useState('Idle');
+  const [activeFocus, setActiveFocus] = useState('all'); // 'all' | 'soccer' | 'tennis' | 'basketball' | 'track'
+
+  // References to communicate with Three.js loop
+  const focusRef = useRef('all');
+  focusRef.current = activeFocus;
 
   useEffect(() => {
     if (!mountRef.current) return;
 
-    // Check user preference for reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // Scene, Camera, Renderer
@@ -53,9 +55,9 @@ export default function Sports3DCanvas() {
     });
     const soccerMesh = new THREE.Mesh(soccerGeo, soccerWireMat);
 
-    // Vertices nodes (Glowing points on each panel seam)
+    // Vertices nodes
     const soccerPointsMat = new THREE.PointsMaterial({
-      color: 0x2563eb, // royal athletic blue
+      color: 0x2563eb,
       size: 0.08,
       transparent: true,
       opacity: 0.85
@@ -80,11 +82,10 @@ export default function Sports3DCanvas() {
 
     // ==========================================
     // 2. SPORTS ELEMENT B: 3D ATHLETICS STADIUM TRACK
-    // (Concentric Olympic running curves in 3D perspective)
     // ==========================================
     const trackGroup = new THREE.Group();
     trackGroup.position.set(-0.5, 0, -3);
-    trackGroup.rotation.x = Math.PI * 0.38; // perspective tilted towards viewer
+    trackGroup.rotation.x = Math.PI * 0.38;
 
     const trackLanes = 5;
     for (let i = 0; i < trackLanes; i++) {
@@ -119,7 +120,7 @@ export default function Sports3DCanvas() {
     const tennisSphere = new THREE.Mesh(tennisSphereGeo, tennisSphereMat);
     tennisGroup.add(tennisSphere);
 
-    // Curved Sinusoidal Tennis Seam
+    // Sinusoidal Tennis Seam
     const seamPoints = [];
     const R = 1.52;
     for (let t = 0; t <= Math.PI * 2; t += 0.05) {
@@ -153,7 +154,6 @@ export default function Sports3DCanvas() {
     const bballMesh = new THREE.Mesh(bballGeo, bballMat);
     bballGroup.add(bballMesh);
 
-    // Basketball ribs
     const ribGeo = new THREE.TorusGeometry(1.62, 0.02, 8, 48);
     const ribMat = new THREE.MeshBasicMaterial({ color: 0x1e3a8a, transparent: true, opacity: 0.55 });
     const rib1 = new THREE.Mesh(ribGeo, ribMat);
@@ -166,7 +166,6 @@ export default function Sports3DCanvas() {
 
     // ==========================================
     // 5. KINETIC ATHLETIC PARTICLES
-    // (High-speed velocity sparks in 3D depth)
     // ==========================================
     const particleCount = 420;
     const particlePositions = new Float32Array(particleCount * 3);
@@ -195,15 +194,9 @@ export default function Sports3DCanvas() {
     let targetMouseY = 0;
     let currentMouseX = 0;
     let currentMouseY = 0;
-    let lastScrollTime = Date.now();
 
     const onScroll = () => {
       targetScrollY = window.scrollY;
-      const now = Date.now();
-      if (now - lastScrollTime < 100) {
-        setScrollSpeedIndicator('Engaged');
-      }
-      lastScrollTime = now;
     };
 
     const onMouseMove = (e) => {
@@ -221,15 +214,8 @@ export default function Sports3DCanvas() {
     window.addEventListener('mousemove', onMouseMove, { passive: true });
     window.addEventListener('resize', onResize);
 
-    // Check idle indicator
-    const speedTimer = setInterval(() => {
-      if (Date.now() - lastScrollTime > 350) {
-        setScrollSpeedIndicator('Idle');
-      }
-    }, 250);
-
     // ==========================================
-    // ANIMATION LOOP (LERPED 60FPS)
+    // ANIMATION LOOP WITH TARGET FOCUS LERPING
     // ==========================================
     let animationFrameId;
     let clock = new THREE.Clock();
@@ -249,28 +235,49 @@ export default function Sports3DCanvas() {
 
       const scrollFactor = currentScrollY * 0.0035;
 
-      // 1. Move camera down through the 3D sports stadium
-      camera.position.y = -currentScrollY * 0.007 + currentMouseY * 0.4;
-      camera.position.x = currentMouseX * 0.6;
+      // Calculate Target Camera Position based on Focus Mode
+      let desiredCamX = currentMouseX * 0.6;
+      let desiredCamY = -currentScrollY * 0.007 + currentMouseY * 0.4;
+      let desiredCamZ = 14;
 
-      // 2. Soccer ball rotations on scroll & ambient spin
-      soccerMesh.rotation.y = scrollFactor * 1.5 + (prefersReducedMotion ? 0 : elapsedTime * 0.2);
-      soccerMesh.rotation.x = scrollFactor * 0.8 + (prefersReducedMotion ? 0 : elapsedTime * 0.1);
+      const currentFocus = focusRef.current;
+      if (currentFocus === 'soccer') {
+        desiredCamX = 4.2 + currentMouseX * 0.3;
+        desiredCamY = 1.2 + currentMouseY * 0.3;
+        desiredCamZ = 7.5;
+      } else if (currentFocus === 'tennis') {
+        desiredCamX = -4.5 + currentMouseX * 0.3;
+        desiredCamY = -7.5 + currentMouseY * 0.3;
+        desiredCamZ = 7.5;
+      } else if (currentFocus === 'basketball') {
+        desiredCamX = 4.0 + currentMouseX * 0.3;
+        desiredCamY = -15.5 + currentMouseY * 0.3;
+        desiredCamZ = 7.5;
+      } else if (currentFocus === 'track') {
+        desiredCamX = -0.5 + currentMouseX * 0.4;
+        desiredCamY = 0 + currentMouseY * 0.4;
+        desiredCamZ = 10.5;
+      }
+
+      // Smooth camera translation
+      camera.position.x += (desiredCamX - camera.position.x) * 0.08;
+      camera.position.y += (desiredCamY - camera.position.y) * 0.08;
+      camera.position.z += (desiredCamZ - camera.position.z) * 0.08;
+
+      // Rotations on scroll & ambient spin
+      soccerMesh.rotation.y = scrollFactor * 1.5 + (prefersReducedMotion ? 0 : elapsedTime * 0.25);
+      soccerMesh.rotation.x = scrollFactor * 0.8 + (prefersReducedMotion ? 0 : elapsedTime * 0.12);
       orbitMesh.rotation.z = -scrollFactor * 2.2 + elapsedTime * 0.3;
 
-      // 3. Stadium track rotation & tilt
       trackGroup.rotation.z = scrollFactor * 0.5 + elapsedTime * 0.04;
       trackGroup.rotation.y = Math.sin(elapsedTime * 0.5) * 0.08 + currentMouseX * 0.15;
 
-      // 4. Tennis ball seam dynamic turn
-      tennisGroup.rotation.y = scrollFactor * 2.0 + elapsedTime * 0.25;
+      tennisGroup.rotation.y = scrollFactor * 2.0 + elapsedTime * 0.28;
       tennisGroup.rotation.x = Math.sin(scrollFactor) * 0.5;
 
-      // 5. Basketball spin
-      bballGroup.rotation.y = -scrollFactor * 1.8 + elapsedTime * 0.2;
+      bballGroup.rotation.y = -scrollFactor * 1.8 + elapsedTime * 0.22;
       bballGroup.rotation.x = scrollFactor * 0.9;
 
-      // 6. Particle field subtle wave
       particleSystem.rotation.y = elapsedTime * 0.02 + scrollFactor * 0.2;
       particleSystem.rotation.x = scrollFactor * 0.1;
 
@@ -281,12 +288,10 @@ export default function Sports3DCanvas() {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      clearInterval(speedTimer);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('resize', onResize);
 
-      // Dispose geometries & materials
       scene.traverse((obj) => {
         if (obj.geometry) obj.geometry.dispose();
         if (obj.material) {
@@ -299,7 +304,7 @@ export default function Sports3DCanvas() {
       });
       renderer.dispose();
     };
-  }, [is3DActive]);
+  }, []);
 
   return (
     <>
@@ -310,20 +315,43 @@ export default function Sports3DCanvas() {
         className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-90 transition-opacity duration-700"
       />
 
-      {/* Floating 3D Sports Status HUD (Eye-catching badge) */}
-      <div className="fixed bottom-5 right-5 z-30 pointer-events-auto hidden sm:flex items-center gap-2 bg-white/90 backdrop-blur-md border border-slate-200/80 px-3.5 py-1.5 rounded-full shadow-lg shadow-blue-950/5 text-xs text-blue-950 font-bold transition-all hover:bg-white">
-        <div className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-700"></span>
+      {/* Floating 3D Sports Camera Controller & HUD (Eye-catching interactive controller) */}
+      <div className="fixed bottom-5 right-5 z-30 pointer-events-auto flex items-center gap-1.5 bg-white/95 backdrop-blur-md border border-slate-200/90 p-1.5 rounded-2xl shadow-xl shadow-blue-950/10 text-xs text-blue-950 font-bold transition-all">
+        <div className="flex items-center gap-1.5 px-2.5 py-1">
+          <span className="flex h-2 w-2 relative">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-700"></span>
+          </span>
+          <span className="font-mono text-[11px] font-black uppercase tracking-wider text-blue-950 hidden md:inline">
+            3D Focus:
+          </span>
         </div>
-        <span className="font-mono text-[11px] font-black uppercase tracking-wider text-blue-950">
-          3D Sports Canvas
-        </span>
-        <span className="text-slate-300">|</span>
-        <span className="text-[11px] text-slate-500 font-semibold flex items-center gap-1 font-mono">
-          <RotateCw className="w-3 h-3 text-blue-700" />
-          <span>Scroll to Rotate</span>
-        </span>
+
+        {/* 3D Sport Camera Focus Buttons */}
+        <div className="flex items-center gap-1">
+          {[
+            { id: 'all', label: 'All Arena' },
+            { id: 'soccer', label: 'Football' },
+            { id: 'tennis', label: 'Tennis' },
+            { id: 'basketball', label: 'Basketball' },
+            { id: 'track', label: 'Stadium' },
+          ].map((sport) => {
+            const isSelected = activeFocus === sport.id;
+            return (
+              <button
+                key={sport.id}
+                onClick={() => setActiveFocus(sport.id)}
+                className={`px-2.5 py-1 rounded-xl text-[11px] font-bold transition-all ${
+                  isSelected
+                    ? 'bg-blue-900 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-blue-950 hover:bg-slate-100'
+                }`}
+              >
+                {sport.label}
+              </button>
+            );
+          })}
+        </div>
       </div>
     </>
   );
