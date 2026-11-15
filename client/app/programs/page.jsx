@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Trophy, BookOpen, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export default function ProgramsPage() {
@@ -9,6 +10,7 @@ export default function ProgramsPage() {
       facilities: '12 Clay Courts, 8 Hard Courts, Indoor Arena',
       trainingHours: '22 hrs / week',
       pathway: 'ITF Juniors, UTR, NCAA Division I, ATP/WTA Tour',
+      image: 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=800&auto=format&fit=crop&q=80',
       features: [
         'High-speed video biomechanics (PlaySight)',
         'Customized racket stringing & equipment lab',
@@ -21,6 +23,7 @@ export default function ProgramsPage() {
       facilities: '3 FIFA Quality Pro Turf pitches, 2 Natural Grass',
       trainingHours: '20 hrs / week',
       pathway: 'MLS Next, European Academy Showcases, NCAA',
+      image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop&q=80',
       features: [
         'GPS load monitoring (Catapult sports tracking)',
         'Positional tactical analysis & set-piece mastery',
@@ -33,6 +36,7 @@ export default function ProgramsPage() {
       facilities: '4 NCAA Regulation Hardwood Courts',
       trainingHours: '20 hrs / week',
       pathway: 'Nike EYBL Circuit, National Prep Championship, NCAA D1',
+      image: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&auto=format&fit=crop&q=80',
       features: [
         'Dr. Dish shooting machines with real-time arc analytics',
         'Plyometric vertical jump enhancement program',
@@ -94,33 +98,47 @@ export default function ProgramsPage() {
         </div>
       </div>
 
-      {/* Sports Detail */}
+      {/* Sports Detail with Reference Pictures */}
       <div className="space-y-6">
         <h2 className="text-2xl font-black text-blue-950">Specialized Academy Programs</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {sports.map((sp, i) => (
-            <div key={i} className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-blue-300 transition-all">
+            <div key={i} className="rounded-2xl bg-white border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-md hover:border-blue-300 transition-all">
               <div>
-                <h3 className="text-lg font-black text-blue-950">{sp.name}</h3>
-                <div className="text-xs text-blue-700 font-bold mb-3">{sp.director}</div>
-
-                <div className="text-xs text-slate-600 space-y-1.5 mb-4 pb-4 border-b border-slate-100 font-medium">
-                  <div><strong>Facilities:</strong> {sp.facilities}</div>
-                  <div><strong>Volume:</strong> {sp.trainingHours}</div>
-                  <div><strong>Pathway:</strong> {sp.pathway}</div>
+                <div className="relative h-44 w-full bg-slate-100">
+                  <Image
+                    src={sp.image}
+                    alt={sp.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent flex items-end p-4">
+                    <span className="text-white font-black text-base drop-shadow-sm">{sp.name}</span>
+                  </div>
                 </div>
 
-                <div className="space-y-1.5 text-xs text-slate-700 font-medium">
-                  {sp.features.map((feat, fi) => (
-                    <div key={fi} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-700 shrink-0 mt-0.5" />
-                      <span>{feat}</span>
-                    </div>
-                  ))}
+                <div className="p-6">
+                  <div className="text-xs text-blue-700 font-bold mb-3">{sp.director}</div>
+
+                  <div className="text-xs text-slate-600 space-y-1.5 mb-4 pb-4 border-b border-slate-100 font-medium">
+                    <div><strong>Facilities:</strong> {sp.facilities}</div>
+                    <div><strong>Volume:</strong> {sp.trainingHours}</div>
+                    <div><strong>Pathway:</strong> {sp.pathway}</div>
+                  </div>
+
+                  <div className="space-y-1.5 text-xs text-slate-700 font-medium">
+                    {sp.features.map((feat, fi) => (
+                      <div key={fi} className="flex items-start gap-2">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-blue-700 shrink-0 mt-0.5" />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-100">
+              <div className="px-6 pb-6 pt-2">
                 <Link
                   href="/admissions"
                   className="w-full py-2.5 rounded-lg bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs inline-flex items-center justify-center gap-2 shadow-xs"
