@@ -1,0 +1,11 @@
+# Netlify Monorepo Configuration for AthleteEd Frontend (Next.js 14)
+[build]
+  base = "client"
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
