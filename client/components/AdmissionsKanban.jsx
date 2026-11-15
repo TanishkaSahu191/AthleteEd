@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Calendar, User, FileText, CheckCircle, Clock, Plus, Filter, Search, Award } from 'lucide-react';
 import { updateApplicationStatus } from '../lib/api';
 
@@ -8,6 +8,12 @@ const stages = ['Submitted', 'Under Review', 'Trial Scheduled', 'Offer Extended'
 
 export default function AdmissionsKanban({ initialApplications = [] }) {
   const [applications, setApplications] = useState(initialApplications);
+
+  useEffect(() => {
+    if (initialApplications && initialApplications.length > 0) {
+      setApplications(initialApplications);
+    }
+  }, [initialApplications]);
   const [selectedSport, setSelectedSport] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeModalApp, setActiveModalApp] = useState(null);

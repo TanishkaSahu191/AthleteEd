@@ -33,7 +33,7 @@ export default function DigitalGatePassModal({ isOpen, onClose, passData }) {
     parentSignoff: 'Sarah Jenkins (Verified Parent)',
     wardenSignoff: 'Arthur Pendelton (Olympus Head Warden)',
     status: 'AUTHORIZED FOR DEPARTURE',
-    issueDate: new Date().toLocaleDateString()
+    issueDate: 'Nov 15, 2026'
   };
 
   const handlePrint = () => {

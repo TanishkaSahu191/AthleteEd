@@ -1,12 +1,14 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { UserCheck, ArrowRight } from 'lucide-react';
+import { UserCheck, ArrowRight, Menu, X } from 'lucide-react';
 
 export default function Navbar() {
   const pathname = usePathname();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
     { name: 'Home', href: '/' },
@@ -61,11 +63,11 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Action CTAs */}
-          <div className="flex items-center space-x-3">
+          {/* Action CTAs & Mobile Hamburger */}
+          <div className="flex items-center space-x-2 sm:space-x-3">
             <Link
               href="/portal"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold bg-blue-900 hover:bg-blue-950 text-white transition-all shadow-md shadow-blue-900/20"
+              className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-lg text-xs font-bold bg-blue-900 hover:bg-blue-950 text-white transition-all shadow-md shadow-blue-900/20"
             >
               <UserCheck className="w-3.5 h-3.5 text-blue-200" />
               <span>Launch Portal</span>
@@ -77,8 +79,50 @@ export default function Navbar() {
               <span>Apply for 2026</span>
               <ArrowRight className="w-3.5 h-3.5 text-blue-700" />
             </Link>
+
+            {/* Mobile Hamburger Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 rounded-lg text-slate-600 hover:text-blue-950 hover:bg-slate-100 transition-colors"
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation Dropdown */}
+        {mobileMenuOpen && (
+          <div className="md:hidden py-3 border-t border-slate-100 space-y-1 animate-in slide-in-from-top-2 duration-200">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`block px-4 py-2.5 rounded-lg text-sm font-bold transition-colors ${
+                    isActive
+                      ? 'bg-blue-50 text-blue-900 border border-blue-200/60'
+                      : 'text-slate-700 hover:text-blue-950 hover:bg-slate-50'
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
+            <div className="pt-2 px-4 sm:hidden">
+              <Link
+                href="/admissions"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-xs font-bold border border-slate-300 text-slate-800 bg-slate-50"
+              >
+                <span>Apply for 2026</span>
+                <ArrowRight className="w-3.5 h-3.5 text-blue-700" />
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );

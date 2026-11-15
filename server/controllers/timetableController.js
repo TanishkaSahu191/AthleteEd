@@ -1,5 +1,12 @@
 const { timetableEntries } = require('../data/demoData');
 
+// Helper to convert "HH:MM" (or "H:MM") to total minutes from midnight for robust conflict comparison
+const timeToMinutes = (t) => {
+  if (!t || typeof t !== 'string') return 0;
+  const parts = t.split(':').map(Number);
+  return (parts[0] || 0) * 60 + (parts[1] || 0);
+};
+
 // GET /api/v1/timetable - Get unified timetable with optional day/type filters
 const getTimetable = (req, res) => {
   const { day, type, targetGroup } = req.query;
@@ -24,9 +31,14 @@ const getTimetable = (req, res) => {
     for (let j = i + 1; j < entries.length; j++) {
       const a = entries[i];
       const b = entries[j];
-      if (a.day === b.day) {
+      if (a.day.toLowerCase() === b.day.toLowerCase()) {
+        const aStart = timeToMinutes(a.startTime);
+        const aEnd = timeToMinutes(a.endTime);
+        const bStart = timeToMinutes(b.startTime);
+        const bEnd = timeToMinutes(b.endTime);
+
         // If times overlap
-        if (a.startTime < b.endTime && a.endTime > b.startTime) {
+        if (aStart < bEnd && aEnd > bStart) {
           conflicts.push({
             entryA: a.title,
             entryB: b.title,
@@ -56,12 +68,15 @@ const addTimetableEntry = (req, res) => {
     return res.status(400).json({ success: false, message: 'Please provide all required schedule fields.' });
   }
 
-  // Conflict check against existing entries on that day
+  // Conflict check against existing entries on that day using minute arithmetic
+  const newStart = timeToMinutes(startTime);
+  const newEnd = timeToMinutes(endTime);
+
   const existingConflict = timetableEntries.find(
     e => e.day.toLowerCase() === day.toLowerCase() &&
     e.targetGroup === (targetGroup || 'Grade 10') &&
-    startTime < e.endTime &&
-    endTime > e.startTime
+    newStart < timeToMinutes(e.endTime) &&
+    newEnd > timeToMinutes(e.startTime)
   );
 
   if (existingConflict) {
@@ -104,11 +119,14 @@ const simulateConflict = (req, res) => {
     targetGroup = 'Grade 10'
   } = req.body;
 
-  // Find any overlapping existing slot
+  // Find any overlapping existing slot using minute arithmetic
+  const propStart = timeToMinutes(startTime);
+  const propEnd = timeToMinutes(endTime);
+
   const conflict = timetableEntries.find(
     e => e.day.toLowerCase() === day.toLowerCase() &&
-    startTime < e.endTime &&
-    endTime > e.startTime
+    propStart < timeToMinutes(e.endTime) &&
+    propEnd > timeToMinutes(e.startTime)
   );
 
   if (conflict) {

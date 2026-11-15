@@ -1,15 +1,20 @@
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api/v1';
 
-// Safe fetch with fallback
+// Safe fetch with timeout and graceful local fallback
 async function fetchAPI(endpoint, options = {}) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 3500);
+
   try {
     const res = await fetch(`${API_BASE}${endpoint}`, {
       headers: {
         'Content-Type': 'application/json',
         ...(options.headers || {})
       },
+      signal: controller.signal,
       ...options
     });
+    clearTimeout(timeoutId);
 
     if (!res.ok) {
       const errData = await res.json().catch(() => ({}));
@@ -18,6 +23,7 @@ async function fetchAPI(endpoint, options = {}) {
 
     return await res.json();
   } catch (error) {
+    clearTimeout(timeoutId);
     console.warn(`[API Fallback] Request to ${endpoint} failed (${error.message}). Using local client state.`);
     return null;
   }
